@@ -1,0 +1,25 @@
+.my-form-group {
+    margin: 10px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.my-read-only-form-group {
+    margin: 10px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid black;
+    padding: 3%;
+    border-radius: 10px;  
+    background-color: antiquewhite; 
+}
+#my-form {
+    width: 50%;
+    margin: 20px;
+    border: 2px solid blue;
+    border-radius: 20px;
+    background-color: lightblue;
+}
+#add-review-button {
+    display: block;
+    margin: 20px auto;
+}
