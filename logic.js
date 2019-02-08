@@ -18,10 +18,40 @@
 //     s.parentNode.insertBefore(gcse, s);
 //   })();
 
+$(document).ready(function (){
+   $('select').css("display","inline");
+   //$('select').formSelect();
+   //$('select').material_select();
+
+
+
+  $('select').on('change', function() {
+    alert( $(this).find(":selected").text() );
+    });
+
  var zip = "95816";
  var startCount = 1;
  var displayCount = 0;
   var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBqPdf_mEV6S3Q4dL6Y2Rg8EBsH-Oi2RUA&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zip + "&start=" + startCount;
+  
+  var SacZipCodes = [95843,95864,95825,95821,95608,95610,95621,95638,95615,95757,
+                                95758,95624,95626,95628,95828,95630,95842,95632,95639,95641,
+                                95655,95652,95841,95660,95662,95827,95742,95670,95683,95673,95826,95680,95837,
+                                95816,95819,95811,95814,95832,95817,95835,95833,95820,95838,95824,95818,95834,
+                                95815,95831,95822,95823,95829,95830,95690,95693];
+
+                                
+
+function renderZips(array){
+
+    for (var i=0; i<array.length; i++){
+        var zip = $("<option>");
+        zip.attr("value", i+1);
+        zip.text(array[i]);
+        $("#zips").append(zip);
+    }
+};
+
  
 function renderShops(){
 
@@ -90,6 +120,7 @@ function renderShops(){
         }
       
                 console.log(displayCount);
+
                 if (displayCount < 10){
                     console.log("leo is here")
                     startCount+=10;
@@ -104,11 +135,13 @@ function renderShops(){
     
 
 };
-renderShops();
+renderZips(SacZipCodes);
+//renderShops();
 
 
 $("#button").on("click", function(){
     $(".card-small").remove();
+    displayCount =0;
     startCount+=10;
     queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBqPdf_mEV6S3Q4dL6Y2Rg8EBsH-Oi2RUA&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zip + "&start=" + startCount;
     console.log("button clicked");
@@ -117,15 +150,9 @@ $("#button").on("click", function(){
     renderShops();
 });
 
+});
 
-//how to handle async ajax call....this gets run before data is obtained....
 
-//  if (displayCount< 10){
-//      startCount+=10;
-//      console.log(startCount);
-//      queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zip + "&start=" + startCount;
-//      console.log(queryURL);
-     //renderShops();
 
 
 
