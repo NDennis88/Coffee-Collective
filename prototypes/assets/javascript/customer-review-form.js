@@ -312,6 +312,14 @@ function executeAJAXzipCodeQueries() {
         }                
     });
 };
+//________________________________________________
+//  event handlers for writing and reading reviews
+$('.write-review').on('click', function() {
+});
+
+$('.submit-reviews').on('click', function() {
+    var key = $(this).attr('id');
+});
 
 
 
