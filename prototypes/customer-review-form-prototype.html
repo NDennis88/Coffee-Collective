@@ -15,6 +15,15 @@
     </div>
     <form id="my-form">
         <div class="form-group my-read-only-form-group">
+            <div>
+                <label for="coffee-shops">Coffee shops:</label>
+                <select class="form-control" id="coffee-shops">
+                    <option>none</option>
+                    <option>1 (minimal)</option>
+                    <option>2 (adequate)</option>
+                    <option>3 (excellent)</option>
+                </select>
+            </div>
             <label for="coffee-shop-name">Coffee shop name: </label>
             <input class="form-control" id="coffee-shop-name" placeholder="coffee shop name">
             <label for="coffee-shop-address">Address: </label>
@@ -94,8 +103,8 @@
                 <option>5 (outstanding)</option>
             </select>
         </div>
-
         <button id="add-review-button">Add review</button>
+        <button id="get-reviews-button">Get reviews</button>
     </form>
     <div>
         <button id="hide-show-button">Hide/show</button>

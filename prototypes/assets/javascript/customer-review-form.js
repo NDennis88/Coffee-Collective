@@ -8,7 +8,7 @@ projectId: "coffeecollective",
 storageBucket: "",
 messagingSenderId: "391262478514"
 };
-
+var GoogleCustomSearchJSON_API_key = "AIzaSyCKKAaR9MblJ2MBOk7Ek2Wzr0iYZAtCf6Y";
 var coffeeShopListItem = {
     name: '',
     streetAddress: '',
@@ -24,58 +24,18 @@ var lastNames = ['Jones', 'Wang', 'Choi', 'Davis', 'Brooks', 'Johnson', 'Lu',
                 'Jackson', 'Stinson', 'Pearl', 'Rodriquez', 'Sanchez', 'Bingamon', 'Kraft'];
 var ratings = ['0 (none)', '1 (minimal)', '2 (adequate)', '3 (excellent)'];
 
-var SacramentoAreaZipCodes = [95843, 95864];
-                            // 95825, 95821, 95608,
-                            // 95610,
-                            // 95621,
-                            // 95638,
-                            // 95615,
-                            // 95757,
-                            // 95758,
-                            // 95624,
-                            // 95626,
-                            // 95628,
-                            // 95828,
-                            // 95630,
-                            // 95842,
-                            // 95632,
-                            // 95639,
-                            // 95641,
-                            // 95655,
-                            // 95652,
-                            // 95841,
-                            // 95660,
-                            // 95662,
-                            // 95827,
-                            // 95742,
-                            // 95670,
-                            // 95683,
-                            // 95673,
-                            // 95826,
-                            // 95680,
-                            // 95837,
-                            // 95816,
-                            // 95819,
-                            // 95811,
-                            // 95814,
-                            // 95832,
-                            // 95817,
-                            // 95835,
-                            // 95833,
-                            // 95820,
-                            // 95838,
-                            // 95824,
-                            // 95818,
-                            // 95834,
-                            // 95815,
-                            // 95831,
-                            // 95822,
-                            // 95823,
-                            // 95829,
-                            // 95830,
-                            // 95690,
-                            // 95693];
-
+var SacramentoAreaZipCodes = [
+                            // 95843, 95864, 95825, 95821, 95608,
+                            // 95610, 95621, 95638, 95615, 95757,
+                            // 95758, 95624, 95626, 95628, 95828,
+                            // 95630, 95842, 95632, 95639, 95641,
+                            // 95655, 95652, 95841, 95660, 95662,
+                            // 95827, 95742, 95670, 95683, 95673,
+                            95826, 95680, 95837, 95816, 95819,
+                            95811, 95814, 95832, 95817, 95835,
+                            95833, 95820, 95838, 95824, 95818,
+                            95834, 95815, 95831, 95822, 95823,
+                            95829, 95830, 95690, 95693];
 var coffeeShop = {
     name: 'my coffee shop',
     address: '1234 Park Ave',
@@ -152,18 +112,34 @@ var $customerReviewsTable = $("#customer-reviews-table");
 //     var errorMessage = error.message;
 //     // ...
 // });
-var key = 'Under the Rainbow_555 Newton Place, Rancho Cordova, CA';
-database.ref(key).on("value", function(snapshot) {
-    var reviews = [];
-    snapshot.forEach(function(data) {
-        console.log(data.child('shopName').val());
-        console.log(data.child('categories').val());
-        reviews.push(data);
-        // alert(data.key + " wifi=" + data.key.categoryRatings.wifi);
+
+//  populate the list of coffee shops in the database
+database.ref().on("value", function(snapshot) {
+    event.preventDefault();
+    var $coffeeShopsList = $('#coffee-shops');
+    var keys = Object.keys(snapshot.val());
+    for (i=0;i<keys.length;i++) {
+        var option = document.createElement("option");
+        option.text = keys[i];
+        $coffeeShopsList.add(option);  
+    } 
+});
+
+$('#get-reviews-button').on('click', function() {
+    event.preventDefault();
+    // var key = $('#coffee-shop-name').val() + "_" + $('#coffee-shop-address').val();
+    var key = '18 Grams Coffee & Tea' + '_' + '9677 E Stockton Blvd';
+
+    database.ref(key).on("value", function(snapshot) {
+        event.preventDefault();
+        var reviews = [];
+        snapshot.forEach(function(data) {
+            alert(data.parent().name());
+            // alert(data.child('shopName').val());
+            // alert(data.child('categoryRatings').child('wifi').val());
+            reviews.push(data);
+        });
     });
-    // for (i=0;i<reviews.length;i++) {
-    //     alert("Wifi=" + reviews[i].child('categoryRatings').child('alternativeBeverages').val());
-    // }
 });
 $("#hide-show-button").on('click', function() {
     if ($('#my-form').is(':visible')) {
@@ -225,7 +201,6 @@ function generateDummyData() {
         spaceForMeetingsRating = ratings[Math.floor(Math.random() * ratings.length)]
         wifiRating = ratings[Math.floor(Math.random() * ratings.length)];
         alternativeBeveragesRating = ratings[Math.floor(Math.random() * ratings.length)];
-        // alert('Adding review for coffee shop=' + coffeeShopListItems[i].name);
         pushCoffeeShopReviewToDatabase(coffeeShopListItems[i].name, 
                                         coffeeShopListItems[i].streetAddress, 
                                         coffeeShopListItems[i].postalCode,
@@ -238,6 +213,7 @@ function generateDummyData() {
                                         wifiRating,
                                         alternativeBeveragesRating);
     }
+    alert('Successfully generated dummy review for ' + coffeeShopListItems.length + ' coffee shops');
 }
 function pushCoffeeShopReviewToDatabase(shopName, 
                                         shopAddress, 
@@ -257,7 +233,6 @@ function pushCoffeeShopReviewToDatabase(shopName,
     coffeeShopReview.reviewerUsername = reviewerUsername;
     coffeeShopReview.reviewerEmail = reviewerEmail;
     alert('pushCoffeeShopReviewToDatabase: Pushing data for shop=' + shopName);
-
     coffeeShopReview.categoryRatings.food = foodRating;
     coffeeShopReview.categoryRatings.parking = parkingRating;
     coffeeShopReview.categoryRatings.powerOutlets = powerOutletsRating;
@@ -266,18 +241,20 @@ function pushCoffeeShopReviewToDatabase(shopName,
     coffeeShopReview.categoryRatings.alternativeBeverages = alternativeBeveragesRating;
     var key = coffeeShopReview.shopName + '_' + coffeeShopReview.shopAddress;
     database.ref(key).push(coffeeShopReview);
-    alert('pushCoffeeShopReviewToDatabase: Database updated');
+    // alert('pushCoffeeShopReviewToDatabase: Database updated');
 }
 function executeAJAXzipCodeQueries() {
+    var NedasAPIkey = "AIzaSyBqPdf_mEV6S3Q4dL6Y2Rg8EBsH-Oi2RUA";
     var startCount = 1;
     var queryURL;
+    var APIkey = GoogleCustomSearchJSON_API_key;
     displayCount = 0;
     queryCount = 0;
     totalQueries = SacramentoAreaZipCodes.length;
     coffeeShopListItems = [];
     for (i=0;i<SacramentoAreaZipCodes.length;i++)
     {
-        queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBqPdf_mEV6S3Q4dL6Y2Rg8EBsH-Oi2RUA&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + 
+        queryURL = "https://www.googleapis.com/customsearch/v1?key=" + APIkey + "&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + 
             SacramentoAreaZipCodes[i] + "&start=" + startCount;
         // alert('Generating dummy data');
         getShopsData(queryURL);
