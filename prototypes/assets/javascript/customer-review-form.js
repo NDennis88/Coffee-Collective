@@ -215,8 +215,8 @@ function generateDummyData() {
     var firstNameIndex;
     var lastNameIndex;
 
-    alert('Generating dummy data for ' + coffeeShopListItems.length);
-    for (var i;i<coffeeShopListItems.length;i++) {
+
+    for (var i=0;i<coffeeShopListItems.length;i++) {
         firstNameIndex = Math.floor(Math.random() * firstNames.length);
         lastNameIndex = Math.floor(Math.random() * lastNames.length);
         reviewerUsername = firstNames[firstNameIndex] + " " + lastNames[lastNameIndex];
@@ -227,10 +227,10 @@ function generateDummyData() {
         spaceForMeetingsRating = ratings[Math.floor(Math.random() * ratings.length)]
         wifiRating = ratings[Math.floor(Math.random() * ratings.length)];
         alternativeBeveragesRating = ratings[Math.floor(Math.random() * ratings.length)];
-        alert('Adding review for coffee shop=' + coffeeShopListItems[i].shopName);
-        pushCoffeeShopReviewToDatabase(coffeeShopListItems[i].shopName, 
-                                        coffeeShopListItems[i].shopAddress, 
-                                        coffeeShopListItems[i].shopZipcode,
+        alert('Adding review for coffee shop=' + coffeeShopListItems[i].name);
+        pushCoffeeShopReviewToDatabase(coffeeShopListItems[i].name, 
+                                        coffeeShopListItems[i].streetAddress, 
+                                        coffeeShopListItems[i].postalCode,
                                         reviewerUsername,
                                         reviewerEmail,
                                         foodRating,
@@ -239,6 +239,7 @@ function generateDummyData() {
                                         spaceForMeetingsRating,
                                         wifiRating,
                                         alternativeBeveragesRating);
+    }
 }
 function pushCoffeeShopReviewToDatabase(shopName, 
                                         shopAddress, 
@@ -250,22 +251,24 @@ function pushCoffeeShopReviewToDatabase(shopName,
                                         powerOutletsRating,
                                         spaceForMeetingsRating,
                                         wifiRating,
-                                        alternativeBeveragesRating) {
-  coffeeShopReview.shopName = shopName;
-  coffeeShopReview.shopAddress = shopAddress;
-  coffeeShopReview.shopZipcode = shopZipcode;
-  coffeeShopReview.reviewerUsername = reviewerUsername;
-  coffeeShopReview.reviewerEmail = reviewerEmail;
-  coffeeShopReview.categoryRatings.food = foodRating;
-  coffeeShopReview.categoryRatings.parking = parkingRating;
-  coffeeShopReview.categoryRatings.powerOutlets = powerOutletsRating;
-  coffeeShopReview.categoryRatings.spaceForMeetings = spaceForMeetingsRating;
-  coffeeShopReview.categoryRatings.wifi = wifiRating;
-  coffeeShopReview.categoryRatings.alternativeBeverages = alternativeBeveragesRating;
-  var key = coffeeShopReview.shopName + '_' + coffeeShopReview.shopAddress;
-  database.ref(key).push(coffeeShopReview);
-  alert('pushCoffeeShopReviewToDatabase: Database updated');
+                                        alternativeBeveragesRating) 
+{
+    coffeeShopReview.shopName = shopName;
+    coffeeShopReview.shopAddress = shopAddress;
+    coffeeShopReview.shopZipcode = shopZipcode;
+    coffeeShopReview.reviewerUsername = reviewerUsername;
+    coffeeShopReview.reviewerEmail = reviewerEmail;
+    alert('pushCoffeeShopReviewToDatabase: Pushing data for shop=' + shopName);
 
+    coffeeShopReview.categoryRatings.food = foodRating;
+    coffeeShopReview.categoryRatings.parking = parkingRating;
+    coffeeShopReview.categoryRatings.powerOutlets = powerOutletsRating;
+    coffeeShopReview.categoryRatings.spaceForMeetings = spaceForMeetingsRating;
+    coffeeShopReview.categoryRatings.wifi = wifiRating;
+    coffeeShopReview.categoryRatings.alternativeBeverages = alternativeBeveragesRating;
+    var key = coffeeShopReview.shopName + '_' + coffeeShopReview.shopAddress;
+    database.ref(key).push(coffeeShopReview);
+    alert('pushCoffeeShopReviewToDatabase: Database updated');
 }
 function executeAJAXzipCodeQueries() {
     var startCount = 1;
@@ -284,7 +287,7 @@ function executeAJAXzipCodeQueries() {
     }
   }
   function AJAXqueryComplete() {
-      alert('Completed AJAX query #' + queryCount);
+    //   alert('Completed AJAX query #' + queryCount);
   }
   $( document ).ajaxComplete(function() {
     AJAXqueryComplete();
@@ -295,7 +298,7 @@ function executeAJAXzipCodeQueries() {
       method: "GET" 
     }).then(function(response) {
         console.log(response);
-        alert("Response");
+        // alert("Response");
         queryCount++;
         for (var i = 0; i< response.items.length; i++){
             if (response.items[i].pagemap.localbusiness === undefined || 
