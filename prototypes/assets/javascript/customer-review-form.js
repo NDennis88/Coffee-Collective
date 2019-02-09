@@ -119,12 +119,20 @@ database.ref().on("value", function(snapshot) {
     var $coffeeShopsList = $('#coffee-shops');
     var keys = Object.keys(snapshot.val());
     for (i=0;i<keys.length;i++) {
-        var option = document.createElement("option");
-        option.text = keys[i];
-        $coffeeShopsList.add(option);  
+    //     var option = document.createElement("option");
+    //     option.text = keys[i];
+    //     $coffeeShopsList.add(option); 
+        console.log(keys[i]);
+        $coffeeShopsList.append($('<option></option>').val(keys[i]).html(keys[i]));
     } 
 });
-
+$("#coffee-shops").on('change', function() {
+    var selectedElement = $("#coffee-shops").find(":selected").text();
+    var components = selectedElement.split('_');
+    console.log(components);
+    $("#coffee-shop-name").val(components[0]);
+    $("#coffee-shop-address").val(components[1]);
+});
 $('#get-reviews-button').on('click', function() {
     event.preventDefault();
     // var key = $('#coffee-shop-name').val() + "_" + $('#coffee-shop-address').val();
