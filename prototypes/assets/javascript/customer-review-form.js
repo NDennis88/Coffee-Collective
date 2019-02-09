@@ -15,7 +15,6 @@ var coffeeShopListItem = {
     addressLocality: '',
     postalCode: ''
 };
-
 var coffeeShopListItems = [];
 var firstNames = ['Dave', 'Sandra', 'Michelle', 'Day', 'Neda', 'Nai-Mu', 'Robert',
                  'Alice', 'Susan', 'Nancy', 'Allen', 'Francis', 'William', 'Gail',
@@ -168,10 +167,10 @@ database.ref(key).on("value", function(snapshot) {
 });
 $("#hide-show-button").on('click', function() {
     if ($('#my-form').is(':visible')) {
-        alert("Hiding form");
+        // alert("Hiding form");
         $('#my-form').hide();
     } else {
-        alert("Showing form");
+        // alert("Showing form");
         $('#my-form').show();
     }
 });
@@ -215,7 +214,6 @@ function generateDummyData() {
     var firstNameIndex;
     var lastNameIndex;
 
-
     for (var i=0;i<coffeeShopListItems.length;i++) {
         firstNameIndex = Math.floor(Math.random() * firstNames.length);
         lastNameIndex = Math.floor(Math.random() * lastNames.length);
@@ -227,7 +225,7 @@ function generateDummyData() {
         spaceForMeetingsRating = ratings[Math.floor(Math.random() * ratings.length)]
         wifiRating = ratings[Math.floor(Math.random() * ratings.length)];
         alternativeBeveragesRating = ratings[Math.floor(Math.random() * ratings.length)];
-        alert('Adding review for coffee shop=' + coffeeShopListItems[i].name);
+        // alert('Adding review for coffee shop=' + coffeeShopListItems[i].name);
         pushCoffeeShopReviewToDatabase(coffeeShopListItems[i].name, 
                                         coffeeShopListItems[i].streetAddress, 
                                         coffeeShopListItems[i].postalCode,
@@ -309,19 +307,27 @@ function executeAJAXzipCodeQueries() {
             else{
                 console.log(response.items[i].pagemap.localbusiness[0].name);
                 displayCount++;
-                coffeeShopListItem.name = response.items[i].pagemap.localbusiness[0].name;
-                coffeeShopListItem.streetAddress = response.items[i].pagemap.postaladdress[0].streetaddress;
-                coffeeShopListItem.addresslocality = response.items[i].pagemap.postaladdress[0].addresslocality;
-                coffeeShopListItem.postalCode = response.items[i].pagemap.postaladdress[0].postalcode;
-                coffeeShopListItems.push(coffeeShopListItem);
+                var newObject = {};
+                newObject.name = response.items[i].pagemap.localbusiness[0].name;
+                newObject.streetAddress = response.items[i].pagemap.postaladdress[0].streetaddress;
+                newObject.addresslocality = response.items[i].pagemap.postaladdress[0].addresslocality;
+                newObject.postalCode = response.items[i].pagemap.postaladdress[0].postalcode;
+                // alert('Adding shop=' + coffeeShopListItem.name);
+                coffeeShopListItems.push(newObject);
+                for (j=0;j<coffeeShopListItems.length;j++) 
+                {
+                    // alert(coffeeShopListItems[j].name);
+                }
+                console.log(coffeeShopListItems);
             }
         }
         if (totalQueries == queryCount) {
-            alert("Last query completed"); 
+            // alert("Last query completed"); 
             generateDummyData(); 
         }                
     });
 };
+
 
 
 
