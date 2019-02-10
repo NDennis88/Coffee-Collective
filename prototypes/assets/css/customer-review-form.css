@@ -32,4 +32,10 @@
     border: 1 solid black;
     margin-left: 10px;
     margin-right: 10px;
+    max-height: 300px;
+}
+#review-details {
+    border: 1px solid gray;
+    margin: 10px;
+    padding: 5px;
 }

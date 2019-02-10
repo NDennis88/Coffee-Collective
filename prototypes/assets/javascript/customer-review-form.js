@@ -122,6 +122,7 @@ database.ref().on("value", function(snapshot) {
         console.log(keys[i]);
         $coffeeShopsList.append($('<option></option>').val(keys[i]).html(keys[i]));
     } 
+    populateCoffeeShopFields();
 });
 function populateCoffeeShopFields() {
     var selectedElement = $("#coffee-shops").find(":selected").text();
@@ -133,11 +134,6 @@ function populateCoffeeShopFields() {
 
 $("#coffee-shops").on('change', function() {
     populateCoffeeShopFields();
-    var selectedElement = $("#coffee-shops").find(":selected").text();
-    var components = selectedElement.split('_');
-    console.log(components);
-    $("#coffee-shop-name").val(components[0]);
-    $("#coffee-shop-address").val(components[1]);
 });
 $('#get-reviews-button').on('click', function() {
     var avgRatings = {
@@ -161,67 +157,66 @@ $('#get-reviews-button').on('click', function() {
     database.ref(key).on("value", function(snapshot) {
         event.preventDefault();
         var reviews = [];
+        var elements = [];
+        var $reviewDivs = [];
         snapshot.forEach(function(data) {
-            // alert(data.child('shopName').val());
-            // alert(data.child('categoryRatings').child('wifi').val());
             reviews.push(data);
         });
+        $reviews.append("Number of reviews=" + reviews.length);
         for (i=0;i<reviews.length;i++) {
+            $reviewDivs.push($('<div id="review-details"></div>'));
+            var $newDiv = $('<div id="review-details"></div>');
             // wifi
-            $reviews.append('<p>Wifi rating=' + 
-                reviews[i].child('categoryRatings').child('wifi').val() + '</p>');
-            var elements = reviews[i].child('categoryRatings').child('wifi').val().split(' ');
-            avgRatings.wifi[0] += Number(elements[0]);
-            avgRatings.wifi[1] += 1;
-    
-            // power outlets
-            $reviews.append('<p>Wifi rating=' + 
-                reviews[i].child('categoryRatings').child('powerOutlets').val() + '</p>');
-            var elements = reviews[i].child('categoryRatings').child('powerOutlets').val().split(' ');
-            avgRatings.powerOutlets[0] += Number(elements[0]);
-            avgRatings.powerOutlets[1] += 1;
+                $reviewDivs[i].append('<p>Wifi rating=' + 
+                    reviews[i].child('categoryRatings').child('wifi').val() + '</p>');
+                elements = reviews[i].child('categoryRatings').child('wifi').val().split(' ');
+                avgRatings.wifi[0] += Number(elements[0]);
+                avgRatings.wifi[1] += 1;
+        
+                // power outlets
+                $reviewDivs[i].append('<p>Power outlets rating=' + 
+                    reviews[i].child('categoryRatings').child('powerOutlets').val() + '</p>');
+                elements = reviews[i].child('categoryRatings').child('powerOutlets').val().split(' ');
+                avgRatings.powerOutlets[0] += Number(elements[0]);
+                avgRatings.powerOutlets[1] += 1;
 
-            // food
-            $reviews.append('<p>Wifi rating=' + 
-                reviews[i].child('categoryRatings').child('food').val() + '</p>');
-            var elements = reviews[i].child('categoryRatings').child('food').val().split(' ');
-            avgRatings.food[0] += Number(elements[0]);
-            avgRatings.food[1] += 1;
+                // food
+                $reviewDivs[i].append('<p>Food rating=' + 
+                    reviews[i].child('categoryRatings').child('food').val() + '</p>');
+                elements = reviews[i].child('categoryRatings').child('food').val().split(' ');
+                avgRatings.food[0] += Number(elements[0]);
+                avgRatings.food[1] += 1;
 
-            // alternative beverages
-            $reviews.append('<p>Wifi rating=' + 
-                reviews[i].child('categoryRatings').child('alternativeBeverages').val() + '</p>');
-            var elements = reviews[i].child('categoryRatings').child('alternativeBeverages').val().split(' ');
-            avgRatings.alternativeBeverages[0] += Number(elements[0]);
-            avgRatings.alternativeBeverages[1] += 1;
+                // alternative beverages
+                $reviewDivs[i].append('<p>Alternative beverages rating=' + 
+                    reviews[i].child('categoryRatings').child('alternativeBeverages').val() + '</p>');
+                elements = reviews[i].child('categoryRatings').child('alternativeBeverages').val().split(' ');
+                avgRatings.alternativeBeverages[0] += Number(elements[0]);
+                avgRatings.alternativeBeverages[1] += 1;
 
-            // space for meetings
-            $reviews.append('<p>Wifi rating=' + 
-                reviews[i].child('categoryRatings').child('spaceForMeetings').val() + '</p>');
-            var elements = reviews[i].child('categoryRatings').child('spaceForMeetings').val().split(' ');
-            avgRatings.spaceForMeetings[0] += Number(elements[0]);
-            avgRatings.spaceForMeetings[1] += 1;
+                // space for meetings
+                $reviewDivs[i].append('<p>Space for meetings rating=' + 
+                    reviews[i].child('categoryRatings').child('spaceForMeetings').val() + '</p>');
+                elements = reviews[i].child('categoryRatings').child('spaceForMeetings').val().split(' ');
+                avgRatings.spaceForMeetings[0] += Number(elements[0]);
+                avgRatings.spaceForMeetings[1] += 1;
 
-            // parking
-            $reviews.append('<p>Wifi rating=' + 
-                reviews[i].child('categoryRatings').child('parking').val() + '</p>');
-            var elements = reviews[i].child('categoryRatings').child('parking').val().split(' ');
-            avgRatings.parking[0] += Number(elements[0]);
-            avgRatings.parking[1] += 1;
-
-        }
+                // parking
+                $reviewDivs[i].append('<p>Parking rating=' + 
+                    reviews[i].child('categoryRatings').child('parking').val() + '</p>');
+                elements = reviews[i].child('categoryRatings').child('parking').val().split(' ');
+                avgRatings.parking[0] += Number(elements[0]);
+                avgRatings.parking[1] += 1;
+                // $reviews.append($newDiv);
+            }
         avgRatings.avg_wifi = avgRatings.wifi[0]/avgRatings.wifi[1];
         avgRatings.avg_food = avgRatings.food[0]/avgRatings.food[1];
         avgRatings.avg_parking = avgRatings.parking[0]/avgRatings.parking[1];
         avgRatings.avg_powerOutlets = avgRatings.powerOutlets[0]/avgRatings.powerOutlets[1];
         avgRatings.avg_spaceForMeetings = avgRatings.spaceForMeetings[0]/avgRatings.spaceForMeetings[1];
-        avgRatings.avg_alternativeBeverages = avgRatings.alternativeBeverage[0]/avgRatings.alternativeBeverage[1];
-        alert('Avg wifi=' +  avgRatings.avg_wifi);
-        alert('Avg food=' +  avgRatings.avg_food);
-        alert('Avg parking=' +  avgRatings.avg_parking);
-        alert('Avg power outlets=' +  avgRatings.avg_powerOutlets);
-        alert('Avg space for meetings=' +  avgRatings.avg_spaceForMeetings);
-        alert('Avg alternative beverages=' +  avgRatings.avg_alternativeBeverages);
+        avgRatings.avg_alternativeBeverages = avgRatings.alternativeBeverages[0]/avgRatings.alternativeBeverages[1];
+        for (i=0;i<$reviewDivs.length;i++)
+            $reviews.append($reviewDivs[i]);
     });
 });
 $("#hide-show-button").on('click', function() {
