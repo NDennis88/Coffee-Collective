@@ -119,14 +119,20 @@ database.ref().on("value", function(snapshot) {
     var $coffeeShopsList = $('#coffee-shops');
     var keys = Object.keys(snapshot.val());
     for (i=0;i<keys.length;i++) {
-    //     var option = document.createElement("option");
-    //     option.text = keys[i];
-    //     $coffeeShopsList.add(option); 
         console.log(keys[i]);
         $coffeeShopsList.append($('<option></option>').val(keys[i]).html(keys[i]));
     } 
 });
+function populateCoffeeShopFields() {
+    var selectedElement = $("#coffee-shops").find(":selected").text();
+    var components = selectedElement.split('_');
+    console.log(components);
+    $("#coffee-shop-name").val(components[0]);
+    $("#coffee-shop-address").val(components[1]);
+}
+
 $("#coffee-shops").on('change', function() {
+    populateCoffeeShopFields();
     var selectedElement = $("#coffee-shops").find(":selected").text();
     var components = selectedElement.split('_');
     console.log(components);
@@ -134,19 +140,88 @@ $("#coffee-shops").on('change', function() {
     $("#coffee-shop-address").val(components[1]);
 });
 $('#get-reviews-button').on('click', function() {
+    var avgRatings = {
+        wifi: [0, 0],
+        powerOutlets: [0, 0],
+        food: [0, 0],
+        alternativeBeverages: [0, 0],
+        spaceForMeetings: [0, 0],
+        parking: [0, 0],
+        avg_wifi: 0,
+        avg_powerOutlets: 0,
+        avg_food: 0,
+        avg_alternativeBeverages: 0,
+        avg_spaceForMeetings: 0,
+        avg_parking: 0,
+    }
     event.preventDefault();
-    // var key = $('#coffee-shop-name').val() + "_" + $('#coffee-shop-address').val();
-    var key = '18 Grams Coffee & Tea' + '_' + '9677 E Stockton Blvd';
-
+    $reviews = $('#reviews');
+    $reviews.empty();
+    var key = $('#coffee-shop-name').val() + "_" + $('#coffee-shop-address').val();
     database.ref(key).on("value", function(snapshot) {
         event.preventDefault();
         var reviews = [];
         snapshot.forEach(function(data) {
-            alert(data.parent().name());
             // alert(data.child('shopName').val());
             // alert(data.child('categoryRatings').child('wifi').val());
             reviews.push(data);
         });
+        for (i=0;i<reviews.length;i++) {
+            // wifi
+            $reviews.append('<p>Wifi rating=' + 
+                reviews[i].child('categoryRatings').child('wifi').val() + '</p>');
+            var elements = reviews[i].child('categoryRatings').child('wifi').val().split(' ');
+            avgRatings.wifi[0] += Number(elements[0]);
+            avgRatings.wifi[1] += 1;
+    
+            // power outlets
+            $reviews.append('<p>Wifi rating=' + 
+                reviews[i].child('categoryRatings').child('powerOutlets').val() + '</p>');
+            var elements = reviews[i].child('categoryRatings').child('powerOutlets').val().split(' ');
+            avgRatings.powerOutlets[0] += Number(elements[0]);
+            avgRatings.powerOutlets[1] += 1;
+
+            // food
+            $reviews.append('<p>Wifi rating=' + 
+                reviews[i].child('categoryRatings').child('food').val() + '</p>');
+            var elements = reviews[i].child('categoryRatings').child('food').val().split(' ');
+            avgRatings.food[0] += Number(elements[0]);
+            avgRatings.food[1] += 1;
+
+            // alternative beverages
+            $reviews.append('<p>Wifi rating=' + 
+                reviews[i].child('categoryRatings').child('alternativeBeverages').val() + '</p>');
+            var elements = reviews[i].child('categoryRatings').child('alternativeBeverages').val().split(' ');
+            avgRatings.alternativeBeverages[0] += Number(elements[0]);
+            avgRatings.alternativeBeverages[1] += 1;
+
+            // space for meetings
+            $reviews.append('<p>Wifi rating=' + 
+                reviews[i].child('categoryRatings').child('spaceForMeetings').val() + '</p>');
+            var elements = reviews[i].child('categoryRatings').child('spaceForMeetings').val().split(' ');
+            avgRatings.spaceForMeetings[0] += Number(elements[0]);
+            avgRatings.spaceForMeetings[1] += 1;
+
+            // parking
+            $reviews.append('<p>Wifi rating=' + 
+                reviews[i].child('categoryRatings').child('parking').val() + '</p>');
+            var elements = reviews[i].child('categoryRatings').child('parking').val().split(' ');
+            avgRatings.parking[0] += Number(elements[0]);
+            avgRatings.parking[1] += 1;
+
+        }
+        avgRatings.avg_wifi = avgRatings.wifi[0]/avgRatings.wifi[1];
+        avgRatings.avg_food = avgRatings.food[0]/avgRatings.food[1];
+        avgRatings.avg_parking = avgRatings.parking[0]/avgRatings.parking[1];
+        avgRatings.avg_powerOutlets = avgRatings.powerOutlets[0]/avgRatings.powerOutlets[1];
+        avgRatings.avg_spaceForMeetings = avgRatings.spaceForMeetings[0]/avgRatings.spaceForMeetings[1];
+        avgRatings.avg_alternativeBeverages = avgRatings.alternativeBeverage[0]/avgRatings.alternativeBeverage[1];
+        alert('Avg wifi=' +  avgRatings.avg_wifi);
+        alert('Avg food=' +  avgRatings.avg_food);
+        alert('Avg parking=' +  avgRatings.avg_parking);
+        alert('Avg power outlets=' +  avgRatings.avg_powerOutlets);
+        alert('Avg space for meetings=' +  avgRatings.avg_spaceForMeetings);
+        alert('Avg alternative beverages=' +  avgRatings.avg_alternativeBeverages);
     });
 });
 $("#hide-show-button").on('click', function() {
@@ -184,6 +259,7 @@ $("#my-form :input").change(function() {
         $('#add-review-button').removeAttr("disabled");
     }
   });
+
   $('#generate-dummy-data-button').on('click', executeAJAXzipCodeQueries);
 
 function generateDummyData() {

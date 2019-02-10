@@ -27,3 +27,9 @@
     display: block;
     margin: 20px auto;
 }
+#reviews {
+    overflow-y: scroll;
+    border: 1 solid black;
+    margin-left: 10px;
+    margin-right: 10px;
+}
