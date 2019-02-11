@@ -1,12 +1,12 @@
 
 // Initialize Firebase
 var config = {
-apiKey: "AIzaSyBbRGkTQqynMteWZM9dIr26SsIblxOYe94",
-authDomain: "coffeecollective.firebaseapp.com",
-databaseURL: "https://coffeecollective.firebaseio.com",
-projectId: "coffeecollective",
-storageBucket: "",
-messagingSenderId: "391262478514"
+    apiKey: "AIzaSyBbRGkTQqynMteWZM9dIr26SsIblxOYe94",
+    authDomain: "coffeecollective.firebaseapp.com",
+    databaseURL: "https://coffeecollective.firebaseio.com",
+    projectId: "coffeecollective",
+    storageBucket: "",
+    messagingSenderId: "391262478514"
 };
 var GoogleCustomSearchJSON_API_key = "AIzaSyCKKAaR9MblJ2MBOk7Ek2Wzr0iYZAtCf6Y";
 var coffeeShopListItem = {
@@ -65,11 +65,10 @@ var database = firebase.database();
 $('#add-review-button').attr("disabled", "disabled");
 initializeReviewFormDropdowns();
 function initializeReviewFormDropdowns() {
-    // $("#coffee-shop-name").prop("selectedIndex", -1);
-    // $("#coffee-shop-address").prop("selectedIndex", -1);
-    // $("#coffee-shop-zipcode").prop("selectedIndex", -1);
-    // $("#reviewers-name").prop("selectedIndex", -1);
-    // $("#reviewers-email").prop("selectedIndex", -1);
+    // This function forces the dropdowns in the review form to effectively have no 
+    //  initial value. We do this to validate user inputs before allowing them to
+    // submit the review, i.e., they must have explicitly selected a value for each of 
+    // of the 
     $("#food-rating").prop("selectedIndex", -1);
     $("#parking-rating").prop("selectedIndex", -1);
     $("#power-outlets-rating").prop("selectedIndex", -1);
@@ -114,14 +113,60 @@ var $customerReviewsTable = $("#customer-reviews-table");
 // });
 
 //  populate the list of coffee shops in the database
+var markers = {
+    longitude: [100, 200, 300],
+    latitude: [30, 40, 50],
+    storeNames: ['store A', 'store B', 'store C']
+}
+database.ref('Markers').set(markers);
+
+database.ref('Markers').on("value", function(snapshot) {
+    // alert('Markers update');
+    markers = snapshot.val();
+    console.log(markers);
+    for (i=0;i<markers.length;i++) {
+        consolelog('Latitude=', markers[i].coords.lat);
+        consolelog('Longitude=', markers[i].coords.lng);
+        consolelog('Content=', markers[i].content);
+    }
+});
+
 database.ref().on("value", function(snapshot) {
     event.preventDefault();
     var $coffeeShopsList = $('#coffee-shops');
+    var $coffeeShopZipCodesList = $('#coffee-shop-zipcode');
     var keys = Object.keys(snapshot.val());
+    var data = snapshot.val();
     for (i=0;i<keys.length;i++) {
         console.log(keys[i]);
         $coffeeShopsList.append($('<option></option>').val(keys[i]).html(keys[i]));
     } 
+    var zipCodes = [];
+    snapshot.forEach(function(childElement) {
+        var data = childElement.val();
+        childElement.forEach(function(thisData) {
+            var dataPoint = thisData.val()
+            console.log('childElement =', dataPoint.reviewerEmail);
+            console.log('childElement =', dataPoint.shopName);
+            console.log('childElement =', dataPoint.shopZipcode);
+            zipCodes.push(dataPoint.shopZipcode);
+        });
+    });
+    // Remove duplicates from zip code list and display list of unique zip codes
+    zipCodes.sort();
+    var uniqueZipCodes = [];
+    uniqueZipCodes.push(zipCodes[0]);
+    for (i=0;i<zipCodes.length-1;i++) {
+        if (zipCodes[i+1]!=zipCodes[i]) {
+            uniqueZipCodes.push(zipCodes[i+1]);
+        }
+    }
+    for (i=0;i<uniqueZipCodes.length;i++) {
+        $coffeeShopZipCodesList.append($('<option></option>').val(uniqueZipCodes[i]).html(uniqueZipCodes[i]));
+    }
+
+    // });
+    // });
     populateCoffeeShopFields();
 });
 function populateCoffeeShopFields() {
@@ -165,56 +210,66 @@ $('#get-reviews-button').on('click', function() {
         $reviews.append("Number of reviews=" + reviews.length);
         for (i=0;i<reviews.length;i++) {
             $reviewDivs.push($('<div id="review-details"></div>'));
-            var $newDiv = $('<div id="review-details"></div>');
+            // var $newDiv = $('<div id="review-details"></div>');
+            $reviewDivs[i].append('<p>Reviewer name=' + reviews[i].child('reviewerUsername').val() +
+                ' Reviewer email=' + reviews[i].child('reviewerEmail').val() + '</p>');
             // wifi
-                $reviewDivs[i].append('<p>Wifi rating=' + 
-                    reviews[i].child('categoryRatings').child('wifi').val() + '</p>');
-                elements = reviews[i].child('categoryRatings').child('wifi').val().split(' ');
-                avgRatings.wifi[0] += Number(elements[0]);
-                avgRatings.wifi[1] += 1;
-        
-                // power outlets
-                $reviewDivs[i].append('<p>Power outlets rating=' + 
-                    reviews[i].child('categoryRatings').child('powerOutlets').val() + '</p>');
-                elements = reviews[i].child('categoryRatings').child('powerOutlets').val().split(' ');
-                avgRatings.powerOutlets[0] += Number(elements[0]);
-                avgRatings.powerOutlets[1] += 1;
+            $reviewDivs[i].append('<p>Wifi rating=' + 
+                reviews[i].child('categoryRatings').child('wifi').val() + '</p>');
+            elements = reviews[i].child('categoryRatings').child('wifi').val().split(' ');
+            avgRatings.wifi[0] += Number(elements[0]);
+            avgRatings.wifi[1] += 1;
+    
+            // power outlets
+            $reviewDivs[i].append('<p>Power outlets rating=' + 
+                reviews[i].child('categoryRatings').child('powerOutlets').val() + '</p>');
+            elements = reviews[i].child('categoryRatings').child('powerOutlets').val().split(' ');
+            avgRatings.powerOutlets[0] += Number(elements[0]);
+            avgRatings.powerOutlets[1] += 1;
 
-                // food
-                $reviewDivs[i].append('<p>Food rating=' + 
-                    reviews[i].child('categoryRatings').child('food').val() + '</p>');
-                elements = reviews[i].child('categoryRatings').child('food').val().split(' ');
-                avgRatings.food[0] += Number(elements[0]);
-                avgRatings.food[1] += 1;
+            // food
+            $reviewDivs[i].append('<p>Food rating=' + 
+                reviews[i].child('categoryRatings').child('food').val() + '</p>');
+            elements = reviews[i].child('categoryRatings').child('food').val().split(' ');
+            avgRatings.food[0] += Number(elements[0]);
+            avgRatings.food[1] += 1;
 
-                // alternative beverages
-                $reviewDivs[i].append('<p>Alternative beverages rating=' + 
-                    reviews[i].child('categoryRatings').child('alternativeBeverages').val() + '</p>');
-                elements = reviews[i].child('categoryRatings').child('alternativeBeverages').val().split(' ');
-                avgRatings.alternativeBeverages[0] += Number(elements[0]);
-                avgRatings.alternativeBeverages[1] += 1;
+            // alternative beverages
+            $reviewDivs[i].append('<p>Alternative beverages rating=' + 
+                reviews[i].child('categoryRatings').child('alternativeBeverages').val() + '</p>');
+            elements = reviews[i].child('categoryRatings').child('alternativeBeverages').val().split(' ');
+            avgRatings.alternativeBeverages[0] += Number(elements[0]);
+            avgRatings.alternativeBeverages[1] += 1;
 
-                // space for meetings
-                $reviewDivs[i].append('<p>Space for meetings rating=' + 
-                    reviews[i].child('categoryRatings').child('spaceForMeetings').val() + '</p>');
-                elements = reviews[i].child('categoryRatings').child('spaceForMeetings').val().split(' ');
-                avgRatings.spaceForMeetings[0] += Number(elements[0]);
-                avgRatings.spaceForMeetings[1] += 1;
+            // space for meetings
+            $reviewDivs[i].append('<p>Space for meetings rating=' + 
+                reviews[i].child('categoryRatings').child('spaceForMeetings').val() + '</p>');
+            elements = reviews[i].child('categoryRatings').child('spaceForMeetings').val().split(' ');
+            avgRatings.spaceForMeetings[0] += Number(elements[0]);
+            avgRatings.spaceForMeetings[1] += 1;
 
-                // parking
-                $reviewDivs[i].append('<p>Parking rating=' + 
-                    reviews[i].child('categoryRatings').child('parking').val() + '</p>');
-                elements = reviews[i].child('categoryRatings').child('parking').val().split(' ');
-                avgRatings.parking[0] += Number(elements[0]);
-                avgRatings.parking[1] += 1;
-                // $reviews.append($newDiv);
-            }
+            // parking
+            $reviewDivs[i].append('<p>Parking rating=' + 
+                reviews[i].child('categoryRatings').child('parking').val() + '</p>');
+            elements = reviews[i].child('categoryRatings').child('parking').val().split(' ');
+            avgRatings.parking[0] += Number(elements[0]);
+            avgRatings.parking[1] += 1;
+            // $reviews.append($newDiv);
+        }
         avgRatings.avg_wifi = avgRatings.wifi[0]/avgRatings.wifi[1];
         avgRatings.avg_food = avgRatings.food[0]/avgRatings.food[1];
         avgRatings.avg_parking = avgRatings.parking[0]/avgRatings.parking[1];
         avgRatings.avg_powerOutlets = avgRatings.powerOutlets[0]/avgRatings.powerOutlets[1];
         avgRatings.avg_spaceForMeetings = avgRatings.spaceForMeetings[0]/avgRatings.spaceForMeetings[1];
         avgRatings.avg_alternativeBeverages = avgRatings.alternativeBeverages[0]/avgRatings.alternativeBeverages[1];
+        $avgRatingsDiv = $('<div id="avg-ratings"></div>');
+        $avgRatingsDiv.append('<h3>Average Ratings</h>');
+        $avgRatingsDiv.append('Wifi=' + avgRatings.avg_wifi.toFixed(2) + '<br>')
+        $avgRatingsDiv.append('Food=' + avgRatings.avg_food.toFixed(2) + '<br>')
+        $avgRatingsDiv.append('Power outlets=' + avgRatings.avg_powerOutlets.toFixed(2) + '<br>')
+        $avgRatingsDiv.append('Parking=' + avgRatings.avg_parking.toFixed(2) + '<br>')
+        $avgRatingsDiv.append('Meeting spaces=' + avgRatings.avg_spaceForMeetings.toFixed(2) + '<br>')
+        $reviews.append($avgRatingsDiv);
         for (i=0;i<$reviewDivs.length;i++)
             $reviews.append($reviewDivs[i]);
     });
