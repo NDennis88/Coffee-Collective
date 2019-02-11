@@ -123,7 +123,7 @@ database.ref('Markers').set(markers);
 database.ref('Markers').on("value", function(snapshot) {
     // alert('Markers update');
     markers = snapshot.val();
-    console.log(markers);
+    // console.log(markers);
     for (i=0;i<markers.length;i++) {
         consolelog('Latitude=', markers[i].coords.lat);
         consolelog('Longitude=', markers[i].coords.lng);
@@ -132,13 +132,13 @@ database.ref('Markers').on("value", function(snapshot) {
 });
 
 database.ref().on("value", function(snapshot) {
-    event.preventDefault();
+    // event.preventDefault();
     var $coffeeShopsList = $('#coffee-shops');
     var $coffeeShopZipCodesList = $('#coffee-shop-zipcode');
     var keys = Object.keys(snapshot.val());
     var data = snapshot.val();
     for (i=0;i<keys.length;i++) {
-        console.log(keys[i]);
+        // console.log(keys[i]);
         $coffeeShopsList.append($('<option></option>').val(keys[i]).html(keys[i]));
     } 
     var zipCodes = [];
@@ -146,9 +146,6 @@ database.ref().on("value", function(snapshot) {
         var data = childElement.val();
         childElement.forEach(function(thisData) {
             var dataPoint = thisData.val()
-            console.log('childElement =', dataPoint.reviewerEmail);
-            console.log('childElement =', dataPoint.shopName);
-            console.log('childElement =', dataPoint.shopZipcode);
             zipCodes.push(dataPoint.shopZipcode);
         });
     });
@@ -172,15 +169,25 @@ database.ref().on("value", function(snapshot) {
 function populateCoffeeShopFields() {
     var selectedElement = $("#coffee-shops").find(":selected").text();
     var components = selectedElement.split('_');
-    console.log(components);
+    var shopZipcode;
+    // console.log(components);
     $("#coffee-shop-name").val(components[0]);
     $("#coffee-shop-address").val(components[1]);
+    database.ref(selectedElement).on("value", function(data) {
+        data.forEach(function(reviewData) {
+            var dataPoint = reviewData.val();
+            console.log('Zip code=' + dataPoint.shopZipcode);
+            shopZipcode = dataPoint.shopZipcode;
+        });
+        $("#coffee-shop-zipcode").val(shopZipcode);
+        // alert('Zip code=' + thisCoffeShop.shopZipcode);
+    });
 }
 
 $("#coffee-shops").on('change', function() {
     populateCoffeeShopFields();
 });
-$('#get-reviews-button').on('click', function() {
+$('#get-reviews-button').on('click', function(event) {
     var avgRatings = {
         wifi: [0, 0],
         powerOutlets: [0, 0],
@@ -200,7 +207,7 @@ $('#get-reviews-button').on('click', function() {
     $reviews.empty();
     var key = $('#coffee-shop-name').val() + "_" + $('#coffee-shop-address').val();
     database.ref(key).on("value", function(snapshot) {
-        event.preventDefault();
+        // event.preventDefault();
         var reviews = [];
         var elements = [];
         var $reviewDivs = [];
@@ -310,7 +317,7 @@ $("#my-form :input").change(function() {
     }
   });
 
-  $('#generate-dummy-data-button').on('click', executeAJAXzipCodeQueries);
+$('#generate-dummy-data-button').on('click', executeAJAXzipCodeQueries);
 
 function generateDummyData() {
     var reviewerUsername;
@@ -324,6 +331,7 @@ function generateDummyData() {
     var firstNameIndex;
     var lastNameIndex;
 
+    alert('Generating dummy data for ' + coffeeShopListItems.length + ' coffee shops');
     for (var i=0;i<coffeeShopListItems.length;i++) {
         firstNameIndex = Math.floor(Math.random() * firstNames.length);
         lastNameIndex = Math.floor(Math.random() * lastNames.length);
@@ -335,6 +343,7 @@ function generateDummyData() {
         spaceForMeetingsRating = ratings[Math.floor(Math.random() * ratings.length)]
         wifiRating = ratings[Math.floor(Math.random() * ratings.length)];
         alternativeBeveragesRating = ratings[Math.floor(Math.random() * ratings.length)];
+        alert('generateDummyData: Coffee shop=' + coffeeShopListItems[i].name);
         pushCoffeeShopReviewToDatabase(coffeeShopListItems[i].name, 
                                         coffeeShopListItems[i].streetAddress, 
                                         coffeeShopListItems[i].postalCode,
@@ -377,11 +386,12 @@ function pushCoffeeShopReviewToDatabase(shopName,
     database.ref(key).push(coffeeShopReview);
     // alert('pushCoffeeShopReviewToDatabase: Database updated');
 }
-function executeAJAXzipCodeQueries() {
+function executeAJAXzipCodeQueries(event) {
     var NedasAPIkey = "AIzaSyBqPdf_mEV6S3Q4dL6Y2Rg8EBsH-Oi2RUA";
     var startCount = 1;
     var queryURL;
     var APIkey = GoogleCustomSearchJSON_API_key;
+    event.preventDefault();
     displayCount = 0;
     queryCount = 0;
     totalQueries = SacramentoAreaZipCodes.length;
@@ -406,14 +416,14 @@ function executeAJAXzipCodeQueries() {
       url: queryURL,
       method: "GET" 
     }).then(function(response) {
-        console.log(response);
+        // console.log(response);
         // alert("Response");
         queryCount++;
         for (var i = 0; i< response.items.length; i++){
             if (response.items[i].pagemap.localbusiness === undefined || 
                 response.items[i].pagemap.review === undefined ||
                 response.items[i].title.includes("CLOSED")){
-                console.log("not valid - response.items.length=" + response.items.length + " item=" + i);           
+                // console.log("not valid - response.items.length=" + response.items.length + " item=" + i);           
             }
             else{
                 console.log(response.items[i].pagemap.localbusiness[0].name);
@@ -423,17 +433,10 @@ function executeAJAXzipCodeQueries() {
                 newObject.streetAddress = response.items[i].pagemap.postaladdress[0].streetaddress;
                 newObject.addresslocality = response.items[i].pagemap.postaladdress[0].addresslocality;
                 newObject.postalCode = response.items[i].pagemap.postaladdress[0].postalcode;
-                // alert('Adding shop=' + coffeeShopListItem.name);
                 coffeeShopListItems.push(newObject);
-                for (j=0;j<coffeeShopListItems.length;j++) 
-                {
-                    // alert(coffeeShopListItems[j].name);
-                }
-                console.log(coffeeShopListItems);
             }
         }
         if (totalQueries == queryCount) {
-            // alert("Last query completed"); 
             generateDummyData(); 
         }                
     });
