@@ -31,8 +31,8 @@ var SacramentoAreaZipCodes = [
                             // 95630, 95842, 95632, 95639, 95641,
                             // 95655, 95652, 95841, 95660, 95662,
                             // 95827, 95742, 95670, 95683, 95673,
-                            95826, 95680, 95837, 95816, 95819,
-                            95811, 95814, 95832, 95817, 95835,
+                            // 95826, 95680, 95837, 95816, 95819,
+                            // 95811, 95814, 95832, 95817, 95835,
                             95833, 95820, 95838, 95824, 95818,
                             95834, 95815, 95831, 95822, 95823,
                             95829, 95830, 95690, 95693];
@@ -56,6 +56,24 @@ var coffeeShopReview = {
         parking: 'private parking'
     }
 }
+var chartArea = $('#bar-chart');
+var chartAvgRatingData = [2.3, 1.5, 2.65, .75, 3, 2,5, 1.75];
+var avgRatings = {
+    wifi: [0, 0],
+    powerOutlets: [0, 0],
+    food: [0, 0],
+    alternativeBeverages: [0, 0],
+    spaceForMeetings: [0, 0],
+    parking: [0, 0],
+    avg_wifi: 0,
+    avg_powerOutlets: 0,
+    avg_food: 0,
+    avg_alternativeBeverages: 0,
+    avg_spaceForMeetings: 0,
+    avg_parking: 0,
+}
+
+
 var displayCount;
 var queryCount;
 var totalQueries;
@@ -166,6 +184,49 @@ database.ref().on("value", function(snapshot) {
     // });
     populateCoffeeShopFields();
 });
+
+function refreshBarChart(avgRatings, coffeeShopName, coffeeShopAddress) {
+    var chartData = [];
+    chartData.push(avgRatings.avg_wifi);
+    chartData.push(avgRatings.avg_food);
+    chartData.push(avgRatings.avg_powerOutlets);
+    chartData.push(avgRatings.avg_alternativeBeverages);
+    chartData.push(avgRatings.avg_spaceForMeetings);
+    chartData.push(avgRatings.avg_parking);
+    
+    var chartLabel = "Average Category Ratings for " + coffeeShopName + " at " + coffeeShopAddress;
+    var myBarChart = new Chart(chartArea, {
+        type: 'bar',
+        data: {
+            labels: ["Wifi", "Food", "Power outlets", "Beverage alternatives", "Meeting space", "Parking"],
+            datasets: [
+                {
+                label: chartLabel,
+                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                data: chartData
+                }
+            ]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Average ratings across all reviews'
+            },
+            scales: {
+                yAxes: [{
+                  barPercentage: 0.5,
+                  ticks: {
+                    min: 0,
+                    max: 3,
+                    stepSize: 1
+                  }
+                }]
+            }
+        }
+    });
+}
+
 function populateCoffeeShopFields() {
     var selectedElement = $("#coffee-shops").find(":selected").text();
     var components = selectedElement.split('_');
@@ -188,24 +249,12 @@ $("#coffee-shops").on('change', function() {
     populateCoffeeShopFields();
 });
 $('#get-reviews-button').on('click', function(event) {
-    var avgRatings = {
-        wifi: [0, 0],
-        powerOutlets: [0, 0],
-        food: [0, 0],
-        alternativeBeverages: [0, 0],
-        spaceForMeetings: [0, 0],
-        parking: [0, 0],
-        avg_wifi: 0,
-        avg_powerOutlets: 0,
-        avg_food: 0,
-        avg_alternativeBeverages: 0,
-        avg_spaceForMeetings: 0,
-        avg_parking: 0,
-    }
     event.preventDefault();
-    $reviews = $('#reviews');
+    $reviews = $('#review-data');
     $reviews.empty();
-    var key = $('#coffee-shop-name').val() + "_" + $('#coffee-shop-address').val();
+    var $coffeeShopName = $('#coffee-shop-name').val();
+    var $coffeeShopAddress = $('#coffee-shop-address').val();
+    var key = $coffeeShopName + "_" + $coffeeShopAddress;
     database.ref(key).on("value", function(snapshot) {
         // event.preventDefault();
         var reviews = [];
@@ -277,8 +326,10 @@ $('#get-reviews-button').on('click', function(event) {
         $avgRatingsDiv.append('Parking=' + avgRatings.avg_parking.toFixed(2) + '<br>')
         $avgRatingsDiv.append('Meeting spaces=' + avgRatings.avg_spaceForMeetings.toFixed(2) + '<br>')
         $reviews.append($avgRatingsDiv);
-        for (i=0;i<$reviewDivs.length;i++)
+        for (i=0;i<$reviewDivs.length;i++) {
             $reviews.append($reviewDivs[i]);
+        }
+        refreshBarChart(avgRatings, $coffeeShopName, $coffeeShopAddress);
     });
 });
 $("#hide-show-button").on('click', function() {

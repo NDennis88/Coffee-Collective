@@ -30,7 +30,7 @@
        </div>
         <div class="form-group my-form-group">
             <label for="reviewers-name">Reviewer's name (optional): </label>
-            <input class="form-control" id="reviewers-name" placeholder="your name">
+            <input class="form-control" id="reviewers-name" placeholder="your name"><br>
             <label for="reviewers-email">Email address (optional): </label>
             <input type="email" class="form-control" id="reviewers-email" placeholder="name@example.com"><br>
         </div>
@@ -103,8 +103,12 @@
         <button id="add-review-button">Write a review</button>
         <button id="get-reviews-button">Show reviews</button>
         <div class="form-group my-read-only-form-group" id="reviews">
-            <p>Review 1</p>
-            <p>Review 2</p>
+            <canvas id="bar-chart">
+            </canvas>
+            <div id="review-data">
+                <p>Review 1</p>
+                <p>Review 2</p>
+            </div>
         </div>
     </form>
     <div>
@@ -120,7 +124,8 @@
     <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="assets/javascript/customer-review-form.js"></script>     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>    
+    <script src="assets/javascript/customer-review-form.js"></script> 
     <script>
     </script>
 </body>
