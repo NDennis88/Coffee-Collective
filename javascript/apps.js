@@ -15,7 +15,7 @@ function initMap() {
         // New map
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat:38.5816, lng:-121.4944},
-          zoom: 10,
+          zoom: 8,
         // Removes Map and Satellite default options
           mapTypeControl: false,
         // Styles a map in Silver
@@ -109,11 +109,11 @@ function initMap() {
           ]
         });
         // Listen for click on map
-        google.maps.event.addListener(map, 'click', 
-        function(event){
+        // google.maps.event.addListener(map, 'click', 
+        // function(event){
         // Add marker
           addMarker({coords:event.latLng});
-        });
+        // });
         var markers = [
             // {
             //   coords:{lat:38.5639, lng:-121.4724},
@@ -129,18 +129,18 @@ function initMap() {
           ];
       
           // Loop through markers
-          for(var i = 0; i < markers.length; i++){
-            addMarker(markers[i]);
-          }
-          
+          // for(var i = 0; i < markers.length; i++){
+          //   addMarker(markers[i]);
+          // }
+
           database.ref('Markers').on("value", function(snapshot) {
             alert('Markers update');
             markers = snapshot.val();
             console.log(markers);
             for (i=0;i<markers.length;i++) {
-                consolelog('Latitude=', markers[i].coords.lat);
-                consolelog('Longitude=', markers[i].coords.lng);
-                consolelog('Content=', markers[i].content);
+                consolelog('Latitude=', props.markers[i].coords.lat);
+                consolelog('Longitude=', props.markers[i].coords.lng);
+                consolelog('Content=', props.markers[i].content);
             }
         });
       
