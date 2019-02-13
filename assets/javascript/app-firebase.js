@@ -11,14 +11,14 @@
 
 
   // Initialize Firebase
-var config = {
-    apiKey: "AIzaSyB6gRTOWB-FIaRDTNxJInuXYNP7gkk4Njg",
-    authDomain: "coffee-collective.firebaseapp.com",
-    databaseURL: "https://coffee-collective.firebaseio.com",
-    projectId: "coffee-collective",
-    storageBucket: "",
-    messagingSenderId: "979553096132"
-};
+// var config = {
+//     apiKey: "AIzaSyB6gRTOWB-FIaRDTNxJInuXYNP7gkk4Njg",
+//     authDomain: "coffee-collective.firebaseapp.com",
+//     databaseURL: "https://coffee-collective.firebaseio.com",
+//     projectId: "coffee-collective",
+//     storageBucket: "",
+//     messagingSenderId: "979553096132"
+// };
 var GoogleCustomSearchJSON_API_key = "AIzaSyCKKAaR9MblJ2MBOk7Ek2Wzr0iYZAtCf6Y";
 var coffeeShopListItem = {
     name: '',
@@ -90,11 +90,11 @@ var queryCount;
 var totalQueries;
 var currentCoffeeShop = "";
 
-firebase.initializeApp(config);
+// firebase.initializeApp(config);
 var database = firebase.database();
 $('#add-review-button').attr("disabled", "disabled");
 initializeReviewFormDropdowns();
-populateCoffeeShopList();
+// populateCoffeeShopList();
 //__________________________________________
 //  FUNCTIONS
 //__________________________________________

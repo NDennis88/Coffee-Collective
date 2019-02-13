@@ -1,28 +1,25 @@
   // Neda test database
+  // var config = {
+  //   apiKey: "AIzaSyCtH4OTXmHVm159otjwJuZtbzgm4RDidrM",
+  //   authDomain: "coffeetest-4ddf6.firebaseapp.com",
+  //   databaseURL: "https://coffeetest-4ddf6.firebaseio.com",
+  //   projectId: "coffeetest-4ddf6",
+  //   storageBucket: "coffeetest-4ddf6.appspot.com",
+  //   messagingSenderId: "913444981834"
+  // };
+
+// Peter's database
   var config = {
-    apiKey: "AIzaSyCtH4OTXmHVm159otjwJuZtbzgm4RDidrM",
-    authDomain: "coffeetest-4ddf6.firebaseapp.com",
-    databaseURL: "https://coffeetest-4ddf6.firebaseio.com",
-    projectId: "coffeetest-4ddf6",
-    storageBucket: "coffeetest-4ddf6.appspot.com",
-    messagingSenderId: "913444981834"
-  };
-
-//   var config = {
-//     apiKey: "AIzaSyBbRGkTQqynMteWZM9dIr26SsIblxOYe94",
-//     authDomain: "coffeecollective.firebaseapp.com",
-//     databaseURL: "https://coffeecollective.firebaseio.com",
-//     projectId: "coffeecollective",
-//     storageBucket: "",
-//     messagingSenderId: "391262478514"
-// };
-
-
+    apiKey: "AIzaSyBbRGkTQqynMteWZM9dIr26SsIblxOYe94",
+    authDomain: "coffeecollective.firebaseapp.com",
+    databaseURL: "https://coffeecollective.firebaseio.com",
+    projectId: "coffeecollective",
+    storageBucket: "",
+    messagingSenderId: "391262478514"
+};
 
   firebase.initializeApp(config);
-
   var database = firebase.database();
-  
 
 // var database = firebase.database();
 
