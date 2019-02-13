@@ -1,4 +1,3 @@
-// this is javasript
 
 // Initialize Firebase
 // var config = {
@@ -12,7 +11,7 @@
 
 
   // Initialize Firebase
-  var config = {
+var config = {
     apiKey: "AIzaSyB6gRTOWB-FIaRDTNxJInuXYNP7gkk4Njg",
     authDomain: "coffee-collective.firebaseapp.com",
     databaseURL: "https://coffee-collective.firebaseio.com",
@@ -88,6 +87,8 @@ var avgRatings = {
     avg_parking: 0,
     avg_overall: 0
 }
+
+
 var displayCount;
 var queryCount;
 var totalQueries;
@@ -96,8 +97,6 @@ firebase.initializeApp(config);
 var database = firebase.database();
 $('#add-review-button').attr("disabled", "disabled");
 initializeReviewFormDropdowns();
-populateCoffeeShopList();
-
 function initializeReviewFormDropdowns() {
     // This function forces the dropdowns in the review form to effectively have no 
     //  initial value. We do this to validate user inputs before allowing them to
@@ -112,40 +111,94 @@ function initializeReviewFormDropdowns() {
     $("#food-rating").prop("selectedIndex", -1);
     $("#overall-rating").prop("selectedIndex", -1);
 }
+// $(document).ready(function(){
+//     $("button").click(function(){
+//       $.getJSON("demo_ajax_json.js", function(result){
+//         $.each(result, function(i, field){
+//           $("div").append(field + " ");
+//         });
+//       });
+//     });
+//   });
+var $customerReviewsTable = $("#customer-reviews-table");
+// $.getJSON('coffeShopReview.json', function(data) {
+//     var coffeShopReviewData = "";
+//     $customerReviewsTable.empty();
+//     $each(data, function(key, value) {
+//         coffeShopReviewData += "<tr>";
+//         coffeShopReviewData += "<td>" + value.coffeeShopName + "</td>";
+//         coffeShopReviewData += "<td>" + value.coffeeShopAdress + "</td>";
+//         coffeShopReviewData += "<td>" + value.Rating_category1 + "</td>";
+//         coffeShopReviewData += "<td>" + value.Rating_category2 + "</td>";
+//         coffeShopReviewData += "<td>" + value.Rating_category3 + "</td>";
+//         coffeShopReviewData += "<td>" + value.Rating_category4 + "</td>";
+//         coffeShopReviewData += "<td>" + value.Rating_category5 + "</td>";
+//         coffeShopReviewData += "</tr>";
+//     }); 
+//     $customerReviewsTable.append(coffeShopReviewData);
+// });
+
+// firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+// // Handle Errors here.
+//     var errorCode = error.code;
+//     var errorMessage = error.message;
+//     // ...
+// });
+
 //  populate the list of coffee shops in the database
-function populateCoffeeShopList() {
-    database.ref().on("value", function(snapshot) {
-        var $coffeeShopsList = $('#coffee-shops');
-        var $coffeeShopZipCodesList = $('#coffee-shop-zipcode');
-        var keys = Object.keys(snapshot.val());
-        var data = snapshot.val();
-        for (i=0;i<keys.length;i++) {
-            // console.log(keys[i]);
-            $coffeeShopsList.append($('<option></option>').val(keys[i]).html(keys[i]));
-        } 
-        var zipCodes = [];
-        snapshot.forEach(function(childElement) {
-            var data = childElement.val();
-            childElement.forEach(function(thisData) {
-                var dataPoint = thisData.val()
-                zipCodes.push(dataPoint.shopZipcode);
-            });
-        });
-        // Remove duplicates from zip code list and display list of unique zip codes
-        zipCodes.sort();
-        var uniqueZipCodes = [];
-        uniqueZipCodes.push(zipCodes[0]);
-        for (i=0;i<zipCodes.length-1;i++) {
-            if (zipCodes[i+1]!=zipCodes[i]) {
-                uniqueZipCodes.push(zipCodes[i+1]);
-            }
-        }
-        for (i=0;i<uniqueZipCodes.length;i++) {
-            $coffeeShopZipCodesList.append($('<option></option>').val(uniqueZipCodes[i]).html(uniqueZipCodes[i]));
-        }
-        populateCoffeeShopFields();
-    });
+var markers = {
+    longitude: [100, 200, 300],
+    latitude: [30, 40, 50],
+    storeNames: ['store A', 'store B', 'store C']
 }
+// database.ref('Markers').set(markers);
+
+// database.ref('Markers').on("value", function(snapshot) {
+//     // alert('Markers update');
+//     markers = snapshot.val();
+//     // console.log(markers);
+//     for (i=0;i<markers.length;i++) {
+//         consolelog('Latitude=', markers[i].coords.lat);
+//         consolelog('Longitude=', markers[i].coords.lng);
+//         consolelog('Content=', markers[i].content);
+//     }
+// });
+
+database.ref().on("value", function(snapshot) {
+    // event.preventDefault();
+    var $coffeeShopsList = $('#coffee-shops');
+    var $coffeeShopZipCodesList = $('#coffee-shop-zipcode');
+    var keys = Object.keys(snapshot.val());
+    var data = snapshot.val();
+    for (i=0;i<keys.length;i++) {
+        // console.log(keys[i]);
+        $coffeeShopsList.append($('<option></option>').val(keys[i]).html(keys[i]));
+    } 
+    var zipCodes = [];
+    snapshot.forEach(function(childElement) {
+        var data = childElement.val();
+        childElement.forEach(function(thisData) {
+            var dataPoint = thisData.val()
+            zipCodes.push(dataPoint.shopZipcode);
+        });
+    });
+    // Remove duplicates from zip code list and display list of unique zip codes
+    zipCodes.sort();
+    var uniqueZipCodes = [];
+    uniqueZipCodes.push(zipCodes[0]);
+    for (i=0;i<zipCodes.length-1;i++) {
+        if (zipCodes[i+1]!=zipCodes[i]) {
+            uniqueZipCodes.push(zipCodes[i+1]);
+        }
+    }
+    for (i=0;i<uniqueZipCodes.length;i++) {
+        $coffeeShopZipCodesList.append($('<option></option>').val(uniqueZipCodes[i]).html(uniqueZipCodes[i]));
+    }
+
+    // });
+    // });
+    populateCoffeeShopFields();
+});
 
 function refreshBarChart(avgRatings, coffeeShopName, coffeeShopAddress) {
     // alert("Updating chart");
