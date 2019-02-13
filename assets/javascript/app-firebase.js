@@ -233,7 +233,7 @@ $("#coffee-shops").on('change', function(event) {
 $('#get-reviews-button').on('click', function(event) {
     getCoffeeShopReviews();
 });
-function getCoffeeShopReviews() {
+function getCoffeeShopReviews(coffeShopKey) {
     event.preventDefault();
     $reviews = $('#reviews');
     $reviews.empty();
@@ -241,6 +241,7 @@ function getCoffeeShopReviews() {
     var $coffeeShopName = $('#coffee-shop-name').val();
     var $coffeeShopAddress = $('#coffee-shop-address').val();
     var key = $coffeeShopName + "_" + $coffeeShopAddress;
+    var key = coffeShopKey;
     var reviews = [];
     var elements = [];
     var $reviewDivs = [];
@@ -523,12 +524,15 @@ function executeAJAXzipCodeQueries(event) {
 };
 //________________________________________________
 //  event handlers for writing and reading reviews
-$('.write-review').on('click', function() {
+$('.show-reviews').on('click', function() {
+    var coffeShopKey = $(this).attr('id');
+    alert("Showing reviews for " + coffeShopKey);
+    getCoffeeShopReviews(coffeShopKey);
 });
 
-$('.submit-reviews').on('click', function() {
-    var key = $(this).attr('id');
-});
+// $('.submit-reviews').on('click', function() {
+//     var key = $(this).attr('id');
+// });
 $('#coffee-shop-zipcode').on('change', function () {
 //  List only coffee shops in this zip code
     var coffeeShopsInZipCode = [];
