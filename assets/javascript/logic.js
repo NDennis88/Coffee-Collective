@@ -1,21 +1,21 @@
   // Neda test database
-//   var config = {
-//     apiKey: "AIzaSyCtH4OTXmHVm159otjwJuZtbzgm4RDidrM",
-//     authDomain: "coffeetest-4ddf6.firebaseapp.com",
-//     databaseURL: "https://coffeetest-4ddf6.firebaseio.com",
-//     projectId: "coffeetest-4ddf6",
-//     storageBucket: "coffeetest-4ddf6.appspot.com",
-//     messagingSenderId: "913444981834"
-//   };
-
   var config = {
-    apiKey: "AIzaSyBbRGkTQqynMteWZM9dIr26SsIblxOYe94",
-    authDomain: "coffeecollective.firebaseapp.com",
-    databaseURL: "https://coffeecollective.firebaseio.com",
-    projectId: "coffeecollective",
-    storageBucket: "",
-    messagingSenderId: "391262478514"
-};
+    apiKey: "AIzaSyCtH4OTXmHVm159otjwJuZtbzgm4RDidrM",
+    authDomain: "coffeetest-4ddf6.firebaseapp.com",
+    databaseURL: "https://coffeetest-4ddf6.firebaseio.com",
+    projectId: "coffeetest-4ddf6",
+    storageBucket: "coffeetest-4ddf6.appspot.com",
+    messagingSenderId: "913444981834"
+  };
+
+//   var config = {
+//     apiKey: "AIzaSyBbRGkTQqynMteWZM9dIr26SsIblxOYe94",
+//     authDomain: "coffeecollective.firebaseapp.com",
+//     databaseURL: "https://coffeecollective.firebaseio.com",
+//     projectId: "coffeecollective",
+//     storageBucket: "",
+//     messagingSenderId: "391262478514"
+// };
 
 
 
@@ -203,7 +203,8 @@ function initMap() {
 // });
 
 //var api = AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo  
-//var api = AIzaSyCzWcFRZ96DbvJn7-Mkf0qkFmnPUIcn5gY                        
+//var api = AIzaSyCzWcFRZ96DbvJn7-Mkf0qkFmnPUIcn5gY     
+//var api = AIzaSyCpUNjFkodz-yXspwmbP55Hbc_XdH49zQU                   
 
 function renderZips(array){
 
@@ -232,7 +233,7 @@ function renderShops(){
 
 console.log(zipToSearch);
 
-var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCpUNjFkodz-yXspwmbP55Hbc_XdH49zQU&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
     $.ajax({
       url: queryURL,
       method: "GET",
@@ -264,7 +265,7 @@ var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZA
                 if (displayCount < 10){
                     //console.log("leo is here")
                     startCount+=10;
-                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCpUNjFkodz-yXspwmbP55Hbc_XdH49zQU&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
                     console.log(queryURL);
                     console.log(startCount);
                     renderShops();
@@ -294,7 +295,7 @@ $("#button").on("click", function(){
     $(".card-small").remove();
     displayCount =0;
     startCount+=10;
-    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCpUNjFkodz-yXspwmbP55Hbc_XdH49zQU&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
     console.log("button clicked");
     console.log(startCount);
     console.log(queryURL);
