@@ -1,3 +1,16 @@
+// Initialize firebase
+var config = {
+    apiKey: "AIzaSyBbRGkTQqynMteWZM9dIr26SsIblxOYe94",
+    authDomain: "coffeecollective.firebaseapp.com",
+    databaseURL: "https://coffeecollective.firebaseio.com",
+    projectId: "coffeecollective",
+    storageBucket: "",
+    messagingSenderId: "391262478514"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
 function initMap() {
         // New map
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -102,23 +115,34 @@ function initMap() {
           addMarker({coords:event.latLng});
         });
         var markers = [
-            {
-              coords:{lat:38.5639, lng:-121.4724},
-              content:'<h1>Temple Coffee</h1>'
-            },
-            {
-              coords:{lat:38.5750, lng:-121.4843},
-              content:'<h1>Old Soul Co.</h1>'
-            },
-            {
-              coords:{lat:38.7442, lng:-121.2876}
-            }
+            // {
+            //   coords:{lat:38.5639, lng:-121.4724},
+            //   content:'<h1>Temple Coffee</h1>'
+            // },
+            // {
+            //   coords:{lat:38.5750, lng:-121.4843},
+            //   content:'<h1>Old Soul Co.</h1>'
+            // },
+            // {
+            //   coords:{lat:38.7442, lng:-121.2876}
+            // }
           ];
       
           // Loop through markers
           for(var i = 0; i < markers.length; i++){
             addMarker(markers[i]);
           }
+          
+          database.ref('Markers').on("value", function(snapshot) {
+            alert('Markers update');
+            markers = snapshot.val();
+            console.log(markers);
+            for (i=0;i<markers.length;i++) {
+                consolelog('Latitude=', markers[i].coords.lat);
+                consolelog('Longitude=', markers[i].coords.lng);
+                consolelog('Content=', markers[i].content);
+            }
+        });
       
             // Add Marker Function
             function addMarker(props){
@@ -128,14 +152,14 @@ function initMap() {
                 draggable: true,
                 animation: google.maps.Animation.DROP,
                 // icon:props.iconImage
-                icon: "images/google-maps-pin-icon-12 2 2.jpg"
+                icon: "images/Coffee Collective.png"
               });
       
-              // Check for custom icon
-              if(props.iconImage){
-                // Set icon image
-                marker.setIcon(props.iconImage);
-              }
+            //   // Check for custom icon
+            //   if(props.iconImage){
+            //     // Set icon image
+            //     marker.setIcon(props.iconImage);
+            //   }
       
               // Check content
               if(props.content){
