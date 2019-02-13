@@ -145,11 +145,10 @@ function populateCoffeeShopList() {
         }
         // alert('Total zip codes=' + uniqueZipCodes.length + ' total shops=' + keys.length);
         showCoffeeShopInformation($("#coffee-shops").find(":selected").text());
-    
     });
 }
 function refreshBarChart(avgRatings, coffeeShopName, coffeeShopAddress) {
-    // alert("Updating chart");
+    alert("Updating chart");
     var chartArea = $('#bar-chart');
     // window.chart = new Chart(chartArea, {});
     var chartData = [];
@@ -520,6 +519,12 @@ $('.show-reviews').on('click', function() {
     getCoffeeShopReviews(coffeShopKey);
     // TO-DO: Add code to scroll to the DOM element where the reviews are displayed
 });
+$('#show-reviews-button').on('click', function() {
+    var coffeShopKey = $('#coffee-shop-name').val() + '_' + $('#coffee-shop-address').val();
+    alert("Showing reviews for " + coffeShopKey);
+    getCoffeeShopReviews(coffeShopKey);
+    // TO-DO: Add code to scroll to the DOM element where the reviews are displayed
+});
 //__________________________________________________________________
 //  on-click event handler for when the user wants to write a review
 //  for a particular coffee shop that appeared in the list of coffee
@@ -582,9 +587,6 @@ $("#my-form :input").change(function() {
     }
     console.log('add-review-button state=' + disable);
   });
-$('#get-reviews-button').on('click', function(event) {
-    getCoffeeShopReviews();
-});
 //____________________________________________________________________________________________________
 // TEST CODE SECTION: These event handlers are only used for testing functionality of the web page
 //
