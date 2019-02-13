@@ -1,4 +1,3 @@
-// this is javasript
 
 // Initialize Firebase
 // var config = {
@@ -12,7 +11,7 @@
 
 
   // Initialize Firebase
-  var config = {
+var config = {
     apiKey: "AIzaSyB6gRTOWB-FIaRDTNxJInuXYNP7gkk4Njg",
     authDomain: "coffee-collective.firebaseapp.com",
     databaseURL: "https://coffee-collective.firebaseio.com",
@@ -35,8 +34,6 @@ var lastNames = ['Jones', 'Wang', 'Choi', 'Davis', 'Brooks', 'Johnson', 'Lu',
                 'Martinez', 'Cramer', 'Pence', 'Trump', 'Obama', 'Martin', 'Thomas',
                 'Jackson', 'Stinson', 'Pearl', 'Rodriquez', 'Sanchez', 'Bingamon', 'Kraft'];
 var ratings = ['0 (none)', '1 (not good)', '2 (so so)', '3 (not too bad)', '4 (pretty good)', '5 (outstanding)'];
-
-
 var SacramentoAreaZipCodes = [
                             95843, 95864, 95825, 95821, 95608,
                             95610, 95621, 95638, 95615, 95757,
@@ -91,13 +88,17 @@ var avgRatings = {
 var displayCount;
 var queryCount;
 var totalQueries;
+var currentCoffeeShop = "";
+
 
 firebase.initializeApp(config);
 var database = firebase.database();
 $('#add-review-button').attr("disabled", "disabled");
 initializeReviewFormDropdowns();
 populateCoffeeShopList();
-
+//__________________________________________
+//  FUNCTIONS
+//__________________________________________
 function initializeReviewFormDropdowns() {
     // This function forces the dropdowns in the review form to effectively have no 
     //  initial value. We do this to validate user inputs before allowing them to
@@ -112,9 +113,9 @@ function initializeReviewFormDropdowns() {
     $("#food-rating").prop("selectedIndex", -1);
     $("#overall-rating").prop("selectedIndex", -1);
 }
-//  populate the list of coffee shops in the database
 function populateCoffeeShopList() {
     database.ref().on("value", function(snapshot) {
+        // event.preventDefault();
         var $coffeeShopsList = $('#coffee-shops');
         var $coffeeShopZipCodesList = $('#coffee-shop-zipcode');
         var keys = Object.keys(snapshot.val());
@@ -143,6 +144,9 @@ function populateCoffeeShopList() {
         for (i=0;i<uniqueZipCodes.length;i++) {
             $coffeeShopZipCodesList.append($('<option></option>').val(uniqueZipCodes[i]).html(uniqueZipCodes[i]));
         }
+        if (currentCoffeeShop != "") {
+            $("#coffee-shops").val(currentCoffeeShop);
+        } 
         populateCoffeeShopFields();
     });
 }
@@ -243,7 +247,30 @@ $('#get-reviews-button').on('click', function(event) {
             reviews.push(data);
         });
     });
-    // alert('Reviews=' + reviews.length);
+    // Compute average ratings for each category
+
+    avgRatings.wifi[0] = 0;
+    avgRatings.wifi[1] = 0;
+    avgRatings.powerOutlets[0] = 0;
+    avgRatings.powerOutlets[1] = 0;
+    avgRatings.alternativeBeverages[0] = 0;
+    avgRatings.alternativeBeverages[1] = 0;
+    avgRatings.spaceForMeetings[0] = 0;
+    avgRatings.spaceForMeetings[1] = 0;
+    avgRatings.parking[0] = 0;
+    avgRatings.parking[1] = 0;
+    avgRatings.food[0] = 0;
+    avgRatings.food[1] = 0;
+    avgRatings.overall[0] = 0;
+    avgRatings.overall[1] = 0;
+    avgRatings.avg_wifi = 0;
+    avgRatings.avg_powerOutlets = 0;
+    avgRatings.avg_alternativeBeverages = 0;
+    avgRatings.avg_spaceForMeetings = 0;
+    avgRatings.avg_parking = 0;
+    avgRatings.avg_overall = 0;
+    avgRatings.avg_food = 0;
+    
     $reviews.append("Number of reviews=" + reviews.length);
     for (i=0;i<reviews.length;i++) {
         $reviewDivs.push($('<div id="review-details"></div>'));
@@ -332,6 +359,7 @@ $("#hide-show-button").on('click', function() {
     }
 });
 $("#add-review-button").on('click', function(){
+    currentCoffeeShop = $("#coffee-shops").val();
     pushCoffeeShopReviewToDatabase($("#coffee-shop-name").val(),
                                     $("#coffee-shop-address").val(),
                                     $("#coffee-shop-zipcode").val(),
@@ -344,6 +372,7 @@ $("#add-review-button").on('click', function(){
                                     $("#wifi-rating").val(),
                                     $("#beverage-alternative-rating").val(),
                                     $("#overall-rating").val());
+    // Force dropdown to return to original value
 });
 $("#my-form :input").change(function() {
     var disable=false;
