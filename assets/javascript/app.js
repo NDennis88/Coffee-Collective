@@ -1,183 +1,3 @@
-<<<<<<< HEAD
-// Initialize firebase
-var config = {
-    apiKey: "AIzaSyBbRGkTQqynMteWZM9dIr26SsIblxOYe94",
-    authDomain: "coffeecollective.firebaseapp.com",
-    databaseURL: "https://coffeecollective.firebaseio.com",
-    projectId: "coffeecollective",
-    storageBucket: "",
-    messagingSenderId: "391262478514"
-};
-firebase.initializeApp(config);
-
-var database = firebase.database();
-
-function initMap() {
-        // New map
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat:38.5816, lng:-121.4944},
-          zoom: 8,
-        // Removes Map and Satellite default options
-          mapTypeControl: false,
-        // Styles a map in Silver
-          styles: [
-            {
-              "elementType": "geometry",
-              "stylers": [{"color": "#f5f5f5"}]
-            },
-            {
-              "elementType": "labels.icon",
-              "stylers": [{"visibility": "off"}]
-            },
-            {
-              "elementType": "labels.text.fill",
-              "stylers": [{"color": "#616161"}]
-            },
-            {
-              "elementType": "labels.text.stroke",
-              "stylers": [{"color": "#f5f5f5"}]
-            },
-            {
-              "featureType": "administrative.land_parcel",
-              "elementType": "labels.text.fill",
-              "stylers": [{"color": "#bdbdbd"}]
-            },
-            {
-              "featureType": "poi",
-              "elementType": "geometry",
-              "stylers": [{"color": "#eeeeee"}]
-            },
-            {
-              "featureType": "poi",
-              "elementType": "labels.text.fill",
-              "stylers": [{"color": "#757575"}]
-            },
-            {
-              "featureType": "poi.park",
-              "elementType": "geometry",
-              "stylers": [{"color": "#e5e5e5"}]
-            },
-            {
-              "featureType": "poi.park",
-              "elementType": "labels.text.fill",
-              "stylers": [{"color": "#9e9e9e"}]
-            },
-            {
-              "featureType": "road",
-              "elementType": "geometry",
-              "stylers": [{"color": "#ffffff"}]
-            },
-            {
-              "featureType": "road.arterial",
-              "elementType": "labels.text.fill",
-              "stylers": [{"color": "#757575"}]
-            },
-            {
-              "featureType": "road.highway",
-              "elementType": "geometry",
-              "stylers": [{"color": "#dadada"}]
-            },
-            {
-              "featureType": "road.highway",
-              "elementType": "labels.text.fill",
-              "stylers": [{"color": "#616161"}]
-            },
-            {
-              "featureType": "road.local",
-              "elementType": "labels.text.fill",
-              "stylers": [{"color": "#9e9e9e"}]
-            },
-            {
-              "featureType": "transit.line",
-              "elementType": "geometry",
-              "stylers": [{"color": "#e5e5e5"}]
-            },
-            {
-              "featureType": "transit.station",
-              "elementType": "geometry",
-              "stylers": [{"color": "#eeeeee"}]
-            },
-            {
-              "featureType": "water",
-              "elementType": "geometry",
-              "stylers": [{"color": "#c9c9c9"}]
-            },
-            {
-              "featureType": "water",
-              "elementType": "labels.text.fill",
-              "stylers": [{"color": "#9e9e9e"}]
-            }
-          ]
-        });
-        // Listen for click on map
-        // google.maps.event.addListener(map, 'click', 
-        // function(event){
-        // Add marker
-          addMarker({coords:event.latLng});
-        // });
-        var markers = [
-            // {
-            //   coords:{lat:38.5639, lng:-121.4724},
-            //   content:'<h1>Temple Coffee</h1>'
-            // },
-            // {
-            //   coords:{lat:38.5750, lng:-121.4843},
-            //   content:'<h1>Old Soul Co.</h1>'
-            // },
-            // {
-            //   coords:{lat:38.7442, lng:-121.2876}
-            // }
-          ];
-      
-          // Loop through markers
-          // for(var i = 0; i < markers.length; i++){
-          //   addMarker(markers[i]);
-          // }
-
-          database.ref('Markers').on("value", function(snapshot) {
-            alert('Markers update');
-            markers = snapshot.val();
-            console.log(markers);
-            for (i=0;i<markers.length;i++) {
-                consolelog('Latitude=', props.markers[i].coords.lat);
-                consolelog('Longitude=', props.markers[i].coords.lng);
-                consolelog('Content=', props.markers[i].content);
-            }
-        });
-      
-            // Add Marker Function
-            function addMarker(props){
-              var marker = new google.maps.Marker({
-                map:map,
-                position:props.coords,
-                draggable: true,
-                animation: google.maps.Animation.DROP,
-                // icon:props.iconImage
-                icon: "images/Coffee Collective.png"
-              });
-      
-            //   // Check for custom icon
-            //   if(props.iconImage){
-            //     // Set icon image
-            //     marker.setIcon(props.iconImage);
-            //   }
-      
-              // Check content
-              if(props.content){
-                var infoWindow = new google.maps.InfoWindow({
-                content: props.content 
-                });
-      
-                marker.addListener('click', function(){
-                  infoWindow.open(map, marker);
-                });
-              }
-            }
-
-
-      }
-=======
-// this is javasript
 
 // Initialize Firebase
 // var config = {
@@ -191,7 +11,7 @@ function initMap() {
 
 
   // Initialize Firebase
-  var config = {
+var config = {
     apiKey: "AIzaSyB6gRTOWB-FIaRDTNxJInuXYNP7gkk4Njg",
     authDomain: "coffee-collective.firebaseapp.com",
     databaseURL: "https://coffee-collective.firebaseio.com",
@@ -214,8 +34,6 @@ var lastNames = ['Jones', 'Wang', 'Choi', 'Davis', 'Brooks', 'Johnson', 'Lu',
                 'Martinez', 'Cramer', 'Pence', 'Trump', 'Obama', 'Martin', 'Thomas',
                 'Jackson', 'Stinson', 'Pearl', 'Rodriquez', 'Sanchez', 'Bingamon', 'Kraft'];
 var ratings = ['0 (none)', '1 (not good)', '2 (so so)', '3 (not too bad)', '4 (pretty good)', '5 (outstanding)'];
-
-
 var SacramentoAreaZipCodes = [
                             95843, 95864, 95825, 95821, 95608,
                             95610, 95621, 95638, 95615, 95757,
@@ -270,13 +88,17 @@ var avgRatings = {
 var displayCount;
 var queryCount;
 var totalQueries;
+var currentCoffeeShop = "";
+
 
 firebase.initializeApp(config);
 var database = firebase.database();
 $('#add-review-button').attr("disabled", "disabled");
 initializeReviewFormDropdowns();
 populateCoffeeShopList();
-
+//__________________________________________
+//  FUNCTIONS
+//__________________________________________
 function initializeReviewFormDropdowns() {
     // This function forces the dropdowns in the review form to effectively have no 
     //  initial value. We do this to validate user inputs before allowing them to
@@ -291,9 +113,9 @@ function initializeReviewFormDropdowns() {
     $("#food-rating").prop("selectedIndex", -1);
     $("#overall-rating").prop("selectedIndex", -1);
 }
-//  populate the list of coffee shops in the database
 function populateCoffeeShopList() {
     database.ref().on("value", function(snapshot) {
+        // event.preventDefault();
         var $coffeeShopsList = $('#coffee-shops');
         var $coffeeShopZipCodesList = $('#coffee-shop-zipcode');
         var keys = Object.keys(snapshot.val());
@@ -322,6 +144,9 @@ function populateCoffeeShopList() {
         for (i=0;i<uniqueZipCodes.length;i++) {
             $coffeeShopZipCodesList.append($('<option></option>').val(uniqueZipCodes[i]).html(uniqueZipCodes[i]));
         }
+        if (currentCoffeeShop != "") {
+            $("#coffee-shops").val(currentCoffeeShop);
+        } 
         populateCoffeeShopFields();
     });
 }
@@ -422,7 +247,30 @@ $('#get-reviews-button').on('click', function(event) {
             reviews.push(data);
         });
     });
-    // alert('Reviews=' + reviews.length);
+    // Compute average ratings for each category
+
+    avgRatings.wifi[0] = 0;
+    avgRatings.wifi[1] = 0;
+    avgRatings.powerOutlets[0] = 0;
+    avgRatings.powerOutlets[1] = 0;
+    avgRatings.alternativeBeverages[0] = 0;
+    avgRatings.alternativeBeverages[1] = 0;
+    avgRatings.spaceForMeetings[0] = 0;
+    avgRatings.spaceForMeetings[1] = 0;
+    avgRatings.parking[0] = 0;
+    avgRatings.parking[1] = 0;
+    avgRatings.food[0] = 0;
+    avgRatings.food[1] = 0;
+    avgRatings.overall[0] = 0;
+    avgRatings.overall[1] = 0;
+    avgRatings.avg_wifi = 0;
+    avgRatings.avg_powerOutlets = 0;
+    avgRatings.avg_alternativeBeverages = 0;
+    avgRatings.avg_spaceForMeetings = 0;
+    avgRatings.avg_parking = 0;
+    avgRatings.avg_overall = 0;
+    avgRatings.avg_food = 0;
+    
     $reviews.append("Number of reviews=" + reviews.length);
     for (i=0;i<reviews.length;i++) {
         $reviewDivs.push($('<div id="review-details"></div>'));
@@ -511,6 +359,7 @@ $("#hide-show-button").on('click', function() {
     }
 });
 $("#add-review-button").on('click', function(){
+    currentCoffeeShop = $("#coffee-shops").val();
     pushCoffeeShopReviewToDatabase($("#coffee-shop-name").val(),
                                     $("#coffee-shop-address").val(),
                                     $("#coffee-shop-zipcode").val(),
@@ -523,6 +372,7 @@ $("#add-review-button").on('click', function(){
                                     $("#wifi-rating").val(),
                                     $("#beverage-alternative-rating").val(),
                                     $("#overall-rating").val());
+    // Force dropdown to return to original value
 });
 $("#my-form :input").change(function() {
     var disable=false;
@@ -702,4 +552,3 @@ $('#coffee-shop-zipcode').on('change', function () {
     populateCoffeeShopFields();
 });
 
->>>>>>> 0691c5e88d1f258210e5981c3ddad5325f2f7d0c
