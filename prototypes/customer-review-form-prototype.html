@@ -17,13 +17,13 @@
         <div class="form-group my-read-only-form-group">
             <div>
                 <label for="coffee-shops">Coffee shops:</label>
-                <select class="form-control" id="coffee-shops">
+                <select class="form-control" id="coffee-shops" style="width: 77.4%">
                 </select>
             </div>
             <label for="coffee-shop-name">Coffee shop name: </label>
-            <input class="form-control" id="coffee-shop-name" placeholder="coffee shop name">
+            <input class="form-control" id="coffee-shop-name" style="width: 70%" placeholder="coffee shop name"><br>
             <label for="coffee-shop-address">Address: </label>
-            <input class="form-control" id="coffee-shop-address" placeholder="coffee shop address">
+            <input class="form-control" id="coffee-shop-address" style="width: 50%" placeholder="coffee shop address">
             <label for="coffee-shop-zipcode">Zip code: </label>
             <select class="form-control" id="coffee-shop-zipcode">
             </select>
@@ -111,14 +111,15 @@
                 <option>5 (outstanding)</option>
             </select>
         </div>
+        <div id="number-of-reviews">
+            <p>This shop currently has <span id="reviews-number-value"> 0 reviews</span></p>
+        </div>
         <button id="add-review-button">Write a review</button>
         <button id="get-reviews-button">Show reviews</button>
         <div class="form-group my-read-only-form-group" id="reviews">
             <canvas id="bar-chart">
             </canvas>
             <div id="review-data">
-                <p>Review 1</p>
-                <p>Review 2</p>
             </div>
         </div>
     </form>
