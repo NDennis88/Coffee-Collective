@@ -320,6 +320,13 @@ $(document).ready(function(){
     <!-- Compiled and minified CSS -->
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <style>
+        #map{
+          height:400px;
+          width:100%;
+        }
+      </style>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script> -->
    
 
@@ -331,26 +338,6 @@ $(document).ready(function(){
   <body>
     <div class="container">
 
-    
-        <!-- <div class="col s12 m7">
-                <div class="card horizontal card-small">
-
-                  <div class="card-image">
-                    <img src="https://lorempixel.com/100/190/nature/6" width="100px">
-                  </div>
-
-                  <div class="card-stacked">
-                    <div class="card-content">
-                      <p>I am a very simple card. I am good at containing small bits of information.</p>
-                    </div>
-                    <div class="card-action">
-                      <a href="#">This is a link</a>
-                      <a href="#">This is a link</a>
-                    </div>
-                  </div>
-
-                </div>
-        </div> -->
         <a class="waves-effect waves-light btn" id="button">Show me more shops!</a> 
         
         <div class="input-field col s12">
@@ -363,8 +350,11 @@ $(document).ready(function(){
         
                        
     </div>
+
+    <div id = 'map'></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIc0QeHnR3NiLuwk8-wzHTnj-2bATvgyU&callback=initMap"async defer></script> -->
      <script src="./logic.js"></script>
    
 </body>
