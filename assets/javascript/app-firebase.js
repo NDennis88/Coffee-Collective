@@ -571,15 +571,39 @@ $("#add-review-button").on('click', function(){
 });
 //_____________________________________________
 //  Event handler for validating user inputs for a coffee shop review
-$("#my-form :input").change(function() {
+$('.form-control').on('change', function(event) {
     // This function does user input validation and checks whether or not the user has
     //  set a value for each of the required select inputs in the review form
     var disable=false;
-    $('#my-form').find('select').each(function(){ 
-        if ($(this).prop('selectedIndex')==-1) {
-            disable=true;
-        }
-    });
+    if ($('#wifi-rating').prop('selectedIndex')==-1) {
+        disable=True;
+    }
+    if ($('#power-outlets-rating').prop('selectedIndex')==-1) {
+        disable=True;
+    }
+    if ($('#food-rating').prop('selectedIndex')==-1) {
+        disable=True;
+    }
+    if ($('#beverage-alternative-rating').prop('selectedIndex')==-1) {
+        disable=True;
+    }
+    if ($('#meeting-space-rating').prop('selectedIndex')==-1) {
+        disable=True;
+    }
+    if ($('#parking-rating').prop('selectedIndex')==-1) {
+        disable=True;
+    }
+    if ($('#overall-rating').prop('selectedIndex')==-1) {
+        disable=True;
+    }
+    // Following code doesn't work in Materialize
+    // $('#my-form').find('select').each(function(){ 
+    //     $(this).attr('id');
+    //     alert('Selected=' + $(this).prop('selectedIndex'));
+    //     if ($(this).prop('selectedIndex')==-1) {
+    //         disable=true;
+    //     }
+    // });
     if (disable) {
         $('#add-review-button').attr("disabled", "disabled");
     } else {
