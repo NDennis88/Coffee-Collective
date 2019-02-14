@@ -563,7 +563,7 @@ $('#coffee-shop-zipcode').on('change', function () {
 //
 //_____________________________________________________________________
 //  event handler for displaying the reviews for a selected coffee shop
-$('.show-reviews').on('click', function() {
+$(document).on('click', '.show-reviews', function() {
     var coffeShopKey = $(this).attr('id');
     alert("Showing reviews for " + coffeShopKey);
     getCoffeeShopReviews(coffeShopKey);
