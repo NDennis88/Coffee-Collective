@@ -10,14 +10,13 @@
 
 // Peter's database
   var config = {
-    apiKey: "AIzaSyBbRGkTQqynMteWZM9dIr26SsIblxOYe94",
-    authDomain: "coffeecollective.firebaseapp.com",
-    databaseURL: "https://coffeecollective.firebaseio.com",
-    projectId: "coffeecollective",
-    storageBucket: "",
-    messagingSenderId: "391262478514"
-};
-
+    apiKey: "AIzaSyB6gRTOWB-FIaRDTNxJInuXYNP7gkk4Njg",
+    authDomain: "coffee-collective.firebaseapp.com",
+    databaseURL: "https://coffee-collective.firebaseio.com",
+    projectId: "coffee-collective",
+    storageBucket: "coffee-collective.appspot.com",
+    messagingSenderId: "979553096132"
+  };
   firebase.initializeApp(config);
   var database = firebase.database();
 
@@ -409,6 +408,7 @@ function renderDiv(item, addressObj) {
     var formLink = $("<a>");
     formLink.attr("href", "#");
     formLink.addClass("write-review");
+    formLink.attr("id", item.pagemap.localbusiness[0].name + "_"+item.pagemap.postaladdress[0].streetaddress)
     formLink.html("<i class=material-icons prefix id= reviewIcon>message</i>");
     //formLink.text("Submit a Review Please!")
 
