@@ -233,15 +233,15 @@ function getCoffeeShopReviews(coffeShopKey) {
     $reviews = $('#review');
     $reviews.empty();
     $reviews.append('<canvas id="bar-chart"></canvas>');
-    var $coffeeShopName = $('#coffee-shop-name').val();
-    var $coffeeShopAddress = $('#coffee-shop-address').val();
-    var key = $coffeeShopName + "_" + $coffeeShopAddress;
+    keyComponents = coffeShopKey.split("_");
+    var $coffeeShopName = keyComponents[0];
+    var $coffeeShopAddress = keyComponents[1];
     var key = coffeShopKey;
     var reviews = [];
     var elements = [];
     var $reviewDivs = [];
     database.ref(key).on("value", function(snapshot) {
-        // event.preventDefault();
+            // event.preventDefault();
         snapshot.forEach(function(data) {
             reviews.push(data);
         });
@@ -269,7 +269,6 @@ function getCoffeeShopReviews(coffeShopKey) {
     avgRatings.avg_parking = 0;
     avgRatings.avg_overall = 0;
     avgRatings.avg_food = 0;
-    
     $reviews.append("Number of reviews=" + reviews.length);
     for (i=0;i<reviews.length;i++) {
         $reviewDivs.push($('<div id="review-details"></div>'));
@@ -347,7 +346,6 @@ function getCoffeeShopReviews(coffeShopKey) {
         $reviews.append($reviewDivs[i]);
     }
     console.log('Reviews', avgRatings);
-    alert('Refreshing chart for ' + reviews.length + ' reviews');
     refreshBarChart(avgRatings, $coffeeShopName, $coffeeShopAddress);
 }
 $("#hide-show-button").on('click', function() {
@@ -404,7 +402,6 @@ function generateDummyData() {
     var firstNameIndex;
     var lastNameIndex;
 
-    alert('Generating dummy data for ' + coffeeShopListItems.length + ' coffee shops');
     for (var i=0;i<coffeeShopListItems.length;i++) {
         firstNameIndex = Math.floor(Math.random() * firstNames.length);
         lastNameIndex = Math.floor(Math.random() * lastNames.length);
@@ -420,7 +417,6 @@ function generateDummyData() {
         if (overallRating == 0) {
             overallRating = 1;  // must be at least a 1 value for overall rating
         }
-        alert('generateDummyData: Coffee shop=' + coffeeShopListItems[i].name);
         pushCoffeeShopReviewToDatabase(coffeeShopListItems[i].name, 
                                         coffeeShopListItems[i].streetAddress, 
                                         coffeeShopListItems[i].postalCode,
@@ -434,7 +430,6 @@ function generateDummyData() {
                                         alternativeBeveragesRating,
                                         overallRating);
     }
-    alert('Successfully generated dummy review for ' + coffeeShopListItems.length + ' coffee shops');
 }
 function pushCoffeeShopReviewToDatabase(shopName, 
                                         shopAddress, 
@@ -463,7 +458,6 @@ function pushCoffeeShopReviewToDatabase(shopName,
     coffeeShopReview.categoryRatings.overall = overallRating;
     var key = coffeeShopReview.shopName + '_' + coffeeShopReview.shopAddress;
     database.ref(key).push(coffeeShopReview);
-    alert('pushCoffeeShopReviewToDatabase: Database updated for coffee shop=' + coffeeShopReview.shopName);
 }
 function executeAJAXzipCodeQueries(event) {
     var NedasAPIkey = "AIzaSyBqPdf_mEV6S3Q4dL6Y2Rg8EBsH-Oi2RUA";
@@ -526,7 +520,7 @@ function executeAJAXzipCodeQueries(event) {
 //  event handlers for writing and reading reviews
 $('.show-reviews').on('click', function() {
     var coffeShopKey = $(this).attr('id');
-    alert("Showing reviews for " + coffeShopKey);
+    // alert("Showing reviews for " + coffeShopKey);
     $([document.documentElement, document.body]).animate({
         scrollTop: $(".reviews").offset().top
     }, 2000);
@@ -563,7 +557,7 @@ $('#coffee-shop-zipcode').on('change', function () {
 //  event handler for displaying the reviews for a selected coffee shop
 $(document).on('click', '.show-reviews', function() {
     var coffeShopKey = $(this).attr('id');
-    alert("Showing reviews for " + coffeShopKey);
+    // alert("Showing reviews for " + coffeShopKey);
     getCoffeeShopReviews(coffeShopKey);
     // TO-DO: Add code to scroll to the DOM element where the reviews are displayed
 });
