@@ -1,11 +1,16 @@
 # Coffee Collective
 
-Front-end train schedule application
+Coffee Shop -- Work space application.
 
 [Coffee Collective Link](https://nedak.github.io/Team4/ "Team4 Link")
 
 ## Description
-The application accepts user input to add new train name, start time, and frequency to its schedule. The data is displayed in a repeating table with Next Arrival based on the current time and frequency of train stops. Train info is stored in Firebase for data persistence, utilizing Realtime Database . 
+The application gives users access to Top Rated coffee shops within the greater Sacramento Area. The ratings reflect users' 'non-negotiables,' such as Wifi strength, work space accommodations, food and beverage variety, and parking convenience.
+
+Once the user searches by zip code, they are matched with a list of 10 coffee shops, an interactive map, and previous reviews from the Collective database. Users are greatly encouraged to provide feedback each time they visit a new location; this data is stored in Firebase for persistent data storage, sorted, and displayed in the Review Section using Chart.js.
+
+Each review strengthens the Collective (ratings) and allows users a more streamlined list of coffee shops / work spaces in the future. Development goals for the app include: creating a user login, implementing a communication board for users to display meet-ups or professional mixers, and extending the beta app to other metropolitan cities. 
+ 
 
 ## Sample View
 cd
@@ -36,6 +41,3 @@ cd
 + MapQuest
 
 
-Hi! Mostly JQuery, Javascript, Firebase
-The API's I used were Google Custom Search, Google Maps, and Mapquest
-BTW, here are the technologies I worked on: firebase, chart.js, javascript event handlers, jquery, user input validation in jquery & javascript
