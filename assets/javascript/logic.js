@@ -204,8 +204,12 @@ function initMap() {
 //var api = AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo  
 //var api = AIzaSyCzWcFRZ96DbvJn7-Mkf0qkFmnPUIcn5gY     
 //var api = AIzaSyCpUNjFkodz-yXspwmbP55Hbc_XdH49zQU  
-// var api = AIzaSyCw2cie1LwqmgFyan6V5PXnbkkjRUUjwG8                 
+// var api = AIzaSyCw2cie1LwqmgFyan6V5PXnbkkjRUUjwG8  
 
+
+//****** Do not use key below....it will be a fresh one we use for project demo 
+//var api = AIzaSyA6JpXNo_vbjUVfYDdhqaLDfhNw2iu1BZc
+//************************************************************************** */
 function renderZips(array){
 
     for (var i=0; i<array.length; i++){
