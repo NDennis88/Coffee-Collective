@@ -1,3 +1,5 @@
+//  Last update:
+//  2/14/2019 12:37pm   Peter   Removed ALERTS & updated coffee shop label on bar chart
 // Initialize Firebase
 // var config = {
 //     apiKey: "AIzaSyB6gRTOWB-FIaRDTNxJInuXYNP7gkk4Njg",
