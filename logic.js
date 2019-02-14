@@ -1,3 +1,5 @@
+  //  Last update:
+  //  2/14/2019 12:37pm   Peter   Added ID to formlink
   // Neda test database
   // var config = {
   //   apiKey: "AIzaSyCtH4OTXmHVm159otjwJuZtbzgm4RDidrM",
@@ -147,14 +149,9 @@ function initMap() {
             var marker = new google.maps.Marker({
             position: {lat: parseFloat(childs.coords.lat), lng: parseFloat(childs.coords.lng)},
             map: map,
-<<<<<<< HEAD
             animation: google.maps.Animation.DROP,
             icon: "assets/images/Coffee Collective.png"
-=======
-            //icon: "../images/Coffee Collective.png"
->>>>>>> b3efe8d421b4045139ecc3bc07513d8a8a8e2a12
             });
-
             //show infor window when marker is clicked
             marker.addListener('click', function() {
               infowindow.open(map, marker);
@@ -407,6 +404,7 @@ function renderDiv(item, addressObj) {
     var formLink = $("<a>");
     formLink.attr("href", "#");
     formLink.addClass("write-review");
+    formLink.attr("id", item.pagemap.localbusiness[0].name + "_"+item.pagemap.postaladdress[0].streetaddress)
     formLink.html("<i class=material-icons prefix id= reviewIcon>message</i>");
     //formLink.text("Submit a Review Please!")
 
