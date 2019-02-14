@@ -354,6 +354,48 @@ function getCoffeeShopReviews(coffeShopKey) {
     }
     refreshBarChart(avgRatings, $coffeeShopName, $coffeeShopAddress);
 }
+$("#hide-show-button").on('click', function() {
+    if ($('#my-form').is(':visible')) {
+        // alert("Hiding form");
+        $('#my-form').hide();
+    } else {
+        // alert("Showing form");
+        $('#my-form').show();
+    }
+});
+$("#add-review-button").on('click', function(){
+
+    //currentCoffeeShop = $("#coffee-shops").val();
+
+    pushCoffeeShopReviewToDatabase($("#coffee-shop-name").val(),
+                                    $("#coffee-shop-address").val(),
+                                    $("#coffee-shop-zipcode").val(),
+                                    $("#reviewers-name").val(),
+                                    $("#reviewers-email").val(),
+                                    $("#food-rating").val(),
+                                    $("#parking-rating").val(),
+                                    $("#power-outlets-rating").val(),
+                                    $("#meeting-space-rating").val(),
+                                    $("#wifi-rating").val(),
+                                    $("#beverage-alternative-rating").val(),
+                                    $("#overall-rating").val());
+    // Force dropdown to return to original value
+});
+$("#my-form :input").change(function() {
+    var disable=false;
+    $('#my-form').find('select').each(function(){ 
+        if ($(this).prop('selectedIndex')==-1) {
+            disable=true;
+        }
+    });
+    if (disable) {
+        $('#add-review-button').attr("disabled", "disabled");
+    } else {
+        $('#add-review-button').removeAttr("disabled");
+    }
+  });
+
+$('#generate-dummy-data-button').on('click', executeAJAXzipCodeQueries);
 function generateDummyData() {
     var reviewerUsername;
     var reviewerEmail;
@@ -484,7 +526,15 @@ function executeAJAXzipCodeQueries(event) {
 };
 //____________________________
 //  DOM element event handlers
-//
+//________________________________________________
+//  event handlers for writing and reading reviews
+$('.show-reviews').on('click', function() {
+    var coffeShopKey = $(this).attr('id');
+    alert("Showing reviews for " + coffeShopKey);
+    getCoffeeShopReviews(coffeShopKey);
+});
+
+
 $('#coffee-shop-zipcode').on('change', function () {
 //  List only coffee shops in this zip code
     var coffeeShopsInZipCode = [];
@@ -519,6 +569,7 @@ $('.show-reviews').on('click', function() {
     getCoffeeShopReviews(coffeShopKey);
     // TO-DO: Add code to scroll to the DOM element where the reviews are displayed
 });
+
 $('#show-reviews-button').on('click', function() {
     var coffeShopKey = $('#coffee-shop-name').val() + '_' + $('#coffee-shop-address').val();
     alert("Showing reviews for " + coffeShopKey);
@@ -609,6 +660,7 @@ $("#coffee-shops").on('change', function(event) {
     var coffeeShopKey = $("#coffee-shops").find(":selected").text();
     showCoffeeShopInformation(coffeeShopKey);
 });
+
 
 
 
