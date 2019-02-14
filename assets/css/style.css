@@ -88,3 +88,12 @@ ul.dropdown-content.select-dropdown li span {
     max-height: 300px;
     overflow-y: scroll;
 }
+
+#review-data {
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+#bar-chart {
+    padding-top: 50px;
+}
