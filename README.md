@@ -1,7 +1,5 @@
 # Coffee Collective
 
-Coffee Shop -- Work space application.
-
 [Coffee Collective Link](https://nedak.github.io/Team4/ "Team4 Link")
 
 ## Description
