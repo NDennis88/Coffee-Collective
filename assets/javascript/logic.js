@@ -218,6 +218,12 @@ function renderZips(array){
 renderZips(SacZipCodes);
 
 $('select').on('change', function() {
+    $(".card-small").remove();
+    displayCount = 0;
+    startCount = 1;
+    database.ref("Markers").remove();
+    markers = [];
+    initMap();
     zipToSearch = ( $(this).find(":selected").text() );
     console.log(zipToSearch);
     renderShops();
