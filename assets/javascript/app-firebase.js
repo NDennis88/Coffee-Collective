@@ -363,7 +363,9 @@ $("#hide-show-button").on('click', function() {
     }
 });
 $("#add-review-button").on('click', function(){
-    currentCoffeeShop = $("#coffee-shops").val();
+
+    //currentCoffeeShop = $("#coffee-shops").val();
+
     pushCoffeeShopReviewToDatabase($("#coffee-shop-name").val(),
                                     $("#coffee-shop-address").val(),
                                     $("#coffee-shop-zipcode").val(),
@@ -530,9 +532,6 @@ $('.show-reviews').on('click', function() {
     getCoffeeShopReviews(coffeShopKey);
 });
 
-// $('.submit-reviews').on('click', function() {
-//     var key = $(this).attr('id');
-// });
 $('#coffee-shop-zipcode').on('change', function () {
 //  List only coffee shops in this zip code
     var coffeeShopsInZipCode = [];
@@ -558,4 +557,23 @@ $('#coffee-shop-zipcode').on('change', function () {
     }
     populateCoffeeShopFields();
 });
+
+$('.write-review').on('click', function(event) {
+    var coffeeShopKey = $(this).attr('id');
+    var numReviews = 0;
+    database.ref(coffeeShopKey).on('value', function(data) {
+        data.forEach(function(reviewData) {
+            var dataPoint = reviewData.val();
+            console.log('Zip code=' + dataPoint.shopZipcode);
+            var shopZipcode = dataPoint.shopZipcode;
+            numReviews++;
+            if (numReviews == 1) {
+                $('#coffee-shop-name').text(dataPoint.shopName);
+                $('#coffee-shop-address').text(dataPoint.shopAddress);
+                $('#coffee-shop-zipcode').text(dataPoint.shopZipcode);
+            }
+        });
+    });
+});
+
 
