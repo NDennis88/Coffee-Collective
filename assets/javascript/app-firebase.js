@@ -363,6 +363,9 @@ $("#hide-show-button").on('click', function() {
     }
 });
 $("#add-review-button").on('click', function(){
+
+    //currentCoffeeShop = $("#coffee-shops").val();
+
     pushCoffeeShopReviewToDatabase($("#coffee-shop-name").val(),
                                     $("#coffee-shop-address").val(),
                                     $("#coffee-shop-zipcode").val(),
@@ -528,6 +531,7 @@ $('.show-reviews').on('click', function() {
     alert("Showing reviews for " + coffeShopKey);
     getCoffeeShopReviews(coffeShopKey);
 });
+
 $('#coffee-shop-zipcode').on('change', function () {
 //  List only coffee shops in this zip code
     var coffeeShopsInZipCode = [];
@@ -553,6 +557,7 @@ $('#coffee-shop-zipcode').on('change', function () {
     }
     populateCoffeeShopFields();
 });
+
 $('.write-review').on('click', function(event) {
     var coffeeShopKey = $(this).attr('id');
     var numReviews = 0;
@@ -570,4 +575,5 @@ $('.write-review').on('click', function(event) {
         });
     });
 });
+
 
