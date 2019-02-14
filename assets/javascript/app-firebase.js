@@ -212,6 +212,7 @@ function showCoffeeShopInformation(coffeeShopKey) {
                 shopZipcode = dataPoint.shopZipcode;
                 $('#coffee-shop-name').val(dataPoint.shopName)
                 $('#coffee-shop-address').val(shopAddress);    
+                $('#coffee-shop-zipcode').val(shopZipcode);    
             }
             numReviews++;
         });
@@ -522,7 +523,7 @@ function executeAJAXzipCodeQueries(event) {
 //  event handlers for writing and reading reviews
 $('.show-reviews').on('click', function() {
     var coffeShopKey = $(this).attr('id');
-    // alert("Showing reviews for " + coffeShopKey);
+    alert("(1) Showing reviews for " + coffeShopKey);
     $([document.documentElement, document.body]).animate({
         scrollTop: $(".reviews").offset().top
     }, 2000);
@@ -560,18 +561,11 @@ $('#coffee-shop-zipcode').on('change', function () {
 $(document).on('click', '.show-reviews', function() {
     var coffeShopKey = $(this).attr('id');
     // alert("Showing reviews for " + coffeShopKey);
-    getCoffeeShopReviews(coffeShopKey);
-    // TO-DO: Add code to scroll to the DOM element where the reviews are displayed
-});
-
-$('#show-reviews-button').on('click', function() {
-    var coffeShopKey = $('#coffee-shop-name').val() + '_' + $('#coffee-shop-address').val();
+    // TO-DO: Add code to auto-click REVIEWS link to make reviews section visible
     $([document.documentElement, document.body]).animate({
         scrollTop: $(".reviews").offset().top
     }, 2000);
-    alert("Showing reviews for " + coffeShopKey);
     getCoffeeShopReviews(coffeShopKey);
-    // TO-DO: Add code to scroll to the DOM element where the reviews are displayed
 });
 //__________________________________________________________________
 //  on-click event handler for when the user wants to write a review
