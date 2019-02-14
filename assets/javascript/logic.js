@@ -231,13 +231,14 @@ $('select').on('change', function() {
  
 //var mapQuestURL = "http://open.mapquestapi.com/geocoding/v1/address?key=mqSsiVGOlUXWSCAUYjt39mqdAEeF6Gld&location=" + address;   
 //var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCzWcFRZ96DbvJn7-Mkf0qkFmnPUIcn5gY&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
-      
+  
+  
  
 function renderShops(){
 
 console.log(zipToSearch);
 
-var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCw2cie1LwqmgFyan6V5PXnbkkjRUUjwG8 &cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
     $.ajax({
       url: queryURL,
       method: "GET",
@@ -269,7 +270,7 @@ var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZA
                 if (displayCount < 10){
                     //console.log("leo is here")
                     startCount+=10;
-                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCw2cie1LwqmgFyan6V5PXnbkkjRUUjwG8 &cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
                     console.log(queryURL);
                     console.log(startCount);
                     renderShops();
