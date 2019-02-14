@@ -3,17 +3,17 @@
 [Coffee Collective Link](https://nedak.github.io/Team4/ "Team4 Link")
 
 ## Description
-The application gives users access to Top Rated coffee shops within the greater Sacramento Area. The ratings reflect user 'non-negotiables,' such as Wifi strength, work space accommodations, food and beverage variety, and parking convenience.
+This application gives users access to Top Rated coffee shops within the greater Sacramento Area. The ratings reflect user 'non-negotiables,' such as Wifi/work space, variety of food and beverage, and parking convenience.
 
-Once the user searches by zip code, they are matched with a list of 10 coffee shops, an interactive map, and previous reviews from the Collective database. Users are encouraged to provide feedback each time they visit a new location. This data is stored in Firebase for persistent data storage, sorted, and displayed in the Review Section using Chart.js.
+Once users search by zip code, they are matched with a list of 10 coffee shops, an interactive map, and previous reviews from the Collective database. Users are encouraged to provide feedback each time they visit a new location. This data is linked to Firebase for persistent data storage, sorted, and displayed in the Review Section using Chart.js.
 
-Each review strengthens the Collective (ratings) and allows users a more streamlined list of coffee shops / work spaces in the future. 
+Each review strengthens the Collective (ratings), providing users a more streamlined list of coffee shops&work spaces in the future. 
 
-Development goals for the app include: creating a user login, implementing a communication board for users to display meet-ups or professional mixers, and extending the beta app roll-out to other metropolitan cities. 
+Development goals for the app include: creating a user login, implementing a communication board for users to display meet-ups or professional mixers, and extending the beta roll-out to other metropolitan cities. 
  
 
 ## Sample View
-cd
+
 ![Coffee Collective App Screenshot](/assets/images/screenshot.jpg/)
 
 
