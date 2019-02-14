@@ -225,7 +225,7 @@ function showCoffeeShopInformation(coffeeShopKey) {
         $("#reviews-number-value").text(numReviews + ' reviews');
     }
     // $('#bar-chart').empty();
-    $('#reviews').empty();
+    $('#review').empty();
 }
 function getCoffeeShopReviews(coffeShopKey) {
     event.preventDefault();
