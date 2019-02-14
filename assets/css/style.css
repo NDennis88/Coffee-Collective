@@ -5,8 +5,9 @@ header{
     min-height: 800px;
 }
 
+
 .container {
-    width: 70%;
+    width: 80%;
 }
 
 .col > div{
@@ -82,3 +83,8 @@ ul.dropdown-content.select-dropdown li span {
     background: transparent;
   }
 
+
+#locationScroll {
+    max-height: 300px;
+    overflow-y: scroll;
+}
