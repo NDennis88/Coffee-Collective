@@ -6,7 +6,7 @@ header{
 }
 
 .container {
-    width: 80%;
+    width: 70%;
 }
 
 .col > div{
@@ -70,7 +70,6 @@ ul.dropdown-content.select-dropdown li span {
     header{
       min-height: 500px;
     }
-master
   }
   .section{
     padding-top: 4vw;
