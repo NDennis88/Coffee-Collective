@@ -35,7 +35,7 @@ function initMap() {
         // New map
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat:38.5816, lng:-121.4944},
-          zoom: 10,
+          zoom: 12,
           mapTypeControl: false,
         // Styles a map in Silver
           styles: [
@@ -147,7 +147,7 @@ function initMap() {
             var marker = new google.maps.Marker({
             position: {lat: parseFloat(childs.coords.lat), lng: parseFloat(childs.coords.lng)},
             map: map,
-            // icon: "images/Coffee Collective.png"
+            //icon: "../images/Coffee Collective.png"
             });
 
             //show infor window when marker is clicked
@@ -177,7 +177,7 @@ function initMap() {
    var displayCount = 0;
    var markers = [];
 
-   var SacZipCodes = [95605, 95691,95822, 95831, 95831, 95833, 95834, 95835, 95836, 95837, 95811, 95814, 95816,
+   var SacZipCodes = [95605, 95691,95822, 95831, 95833, 95834, 95835, 95836, 95837, 95811, 95814, 95816,
     95630, 95816, 95819, 95816, 95817, 95819, 95811, 95814, 95628, 95610, 95621, 95608, 95815, 95821, 95825, 95841, 95864];
  
 //   var SacZipCodes = [95843,95864,95825,95821,95608,95610,95621,95638,95615,95757,
@@ -201,8 +201,9 @@ function initMap() {
 
 //var api = AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo  
 //var api = AIzaSyCzWcFRZ96DbvJn7-Mkf0qkFmnPUIcn5gY     
-//var api = AIzaSyCpUNjFkodz-yXspwmbP55Hbc_XdH49zQU    
-               
+//var api = AIzaSyCpUNjFkodz-yXspwmbP55Hbc_XdH49zQU            
+//var api = AIzaSyCpUNjFkodz-yXspwmbP55Hbc_XdH49zQU  
+// var api = AIzaSyCw2cie1LwqmgFyan6V5PXnbkkjRUUjwG8                 
 
 function renderZips(array){
 
@@ -218,6 +219,12 @@ function renderZips(array){
 renderZips(SacZipCodes);
 
 $('select').on('change', function() {
+    $(".card-small").remove();
+    displayCount = 0;
+    startCount = 1;
+    database.ref("Markers").remove();
+    markers = [];
+    initMap();
     zipToSearch = ( $(this).find(":selected").text() );
     console.log(zipToSearch);
     renderShops();
@@ -231,7 +238,7 @@ function renderShops(){
 
 console.log(zipToSearch);
 
-var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCpUNjFkodz-yXspwmbP55Hbc_XdH49zQU&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
     $.ajax({
       url: queryURL,
       method: "GET",
@@ -263,7 +270,7 @@ var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCpUNjFkodz-
                 if (displayCount < 10){
                     //console.log("leo is here")
                     startCount+=10;
-                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCpUNjFkodz-yXspwmbP55Hbc_XdH49zQU&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
                     console.log(queryURL);
                     console.log(startCount);
                     renderShops();
@@ -289,18 +296,24 @@ var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCpUNjFkodz-
 
 
 
-$("#button").on("click", function(){
-    $(".card-small").remove();
-    displayCount =0;
-    startCount+=10;
-    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCpUNjFkodz-yXspwmbP55Hbc_XdH49zQU&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
-    console.log("button clicked");
-    console.log(startCount);
-    console.log(queryURL);
-    database.ref("Markers").remove();
-    markers = [];
-    initMap();
-    renderShops();
+// $("#button").on("click", function(){
+//     $(".card-small").remove();
+//     displayCount =0;
+//     startCount+=10;
+//     queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+//     console.log("button clicked");
+//     console.log(startCount);
+//     console.log(queryURL);
+//     database.ref("Markers").remove();
+//     markers = [];
+//     initMap();
+//     renderShops();
+// });
+
+$("#button").click(function() {
+  $([document.documentElement, document.body]).animate({
+      scrollTop: $(".locations").offset().top
+  }, 2000);
 });
 
 
@@ -355,8 +368,8 @@ function renderDiv(item, addressObj) {
     //displayCount++;
 
     var makeGrid = $("<div>");
-    makeGrid.addClass("col s12 m7");
-    $(".container").append(makeGrid);
+    makeGrid.addClass("col");
+    $(".locations").append(makeGrid);
 
     var makeCard = $("<div>");
     makeCard.addClass("card horizontal card-small");
@@ -396,14 +409,15 @@ function renderDiv(item, addressObj) {
     var formLink = $("<a>");
     formLink.attr("href", "#");
     formLink.addClass("write-review");
-    formLink.text("Submit a Review Please!")
+    formLink.html("<i class=material-icons prefix id= reviewIcon>message</i>");
+    //formLink.text("Submit a Review Please!")
 
     var showReview = $("<a>");
     showReview.addClass("show-reviews");
     showReview.attr("id", item.pagemap.localbusiness[0].name + "_"+item.pagemap.postaladdress[0].streetaddress)
     showReview.attr("href", "#");
 
-    showReview.text("Display reviews");
+    showReview.text("Reviews");
     makeCardAction.append(formLink, showReview);
     makeDivStacked.append(makeCardAction);
 }
