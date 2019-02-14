@@ -67,22 +67,22 @@ ul.dropdown-content.select-dropdown li span {
     color: #000; 
 }
 
-@media screen and (max-width: 670px){
-    header{
-      min-height: 500px;
-    }
-  }
-  .section{
+
+.section{
     padding-top: 4vw;
     padding-bottom: 4vw;
-  }
-  .tabs .indicator{
+}
+.tabs .indicator{
     background-color: black;
-  }
-  .tabs .tab a:focus, .tabs .tab a:focus.active{
+}
+.tabs .tab a:focus, .tabs .tab a:focus.active{
     background: transparent;
-  }
-/* body */
+}
+
+#locationDiv {
+    padding-bottom: 200px;
+}
+
 
 #locationScroll {
     max-height: 300px;
@@ -108,4 +108,26 @@ ul.dropdown-content.select-dropdown li span {
 
 #bar-chart {
     padding-top: 50px;
+}
+
+@media screen and (max-width: 670px){
+    header{
+      min-height: 500px;
+    }
+}
+
+@media screen and (max-width: 603px){
+  input.select-dropdown.dropdown-trigger{
+        font-size: 1em;
+    }
+} 
+
+
+@media screen and (max-width: 507px){
+    .brand-logo.deep-orange-text.text-darken-4{
+        font-size: 1.5em;
+    }
+    input.select-dropdown.dropdown-trigger{
+        font-size: .8em;
+    }
 }
