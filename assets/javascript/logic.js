@@ -177,7 +177,7 @@ function initMap() {
    var displayCount = 0;
    var markers = [];
 
-   var SacZipCodes = [95605, 95691,95822, 95831, 95831, 95833, 95834, 95835, 95836, 95837, 95811, 95814, 95816,
+   var SacZipCodes = [95605, 95691,95822, 95831, 95833, 95834, 95835, 95836, 95837, 95811, 95814, 95816,
     95630, 95816, 95819, 95816, 95817, 95819, 95811, 95814, 95628, 95610, 95621, 95608, 95815, 95821, 95825, 95841, 95864];
  
 //   var SacZipCodes = [95843,95864,95825,95821,95608,95610,95621,95638,95615,95757,
@@ -231,7 +231,7 @@ function renderShops(){
 
 console.log(zipToSearch);
 
-var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCw2cie1LwqmgFyan6V5PXnbkkjRUUjwG8&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
     $.ajax({
       url: queryURL,
       method: "GET",
@@ -263,7 +263,7 @@ var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCw2cie1Lwqm
                 if (displayCount < 10){
                     //console.log("leo is here")
                     startCount+=10;
-                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCw2cie1LwqmgFyan6V5PXnbkkjRUUjwG8&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
                     console.log(queryURL);
                     console.log(startCount);
                     renderShops();
@@ -289,18 +289,24 @@ var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCw2cie1Lwqm
 
 
 
-$("#button").on("click", function(){
-    $(".card-small").remove();
-    displayCount =0;
-    startCount+=10;
-    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCw2cie1LwqmgFyan6V5PXnbkkjRUUjwG8&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
-    console.log("button clicked");
-    console.log(startCount);
-    console.log(queryURL);
-    database.ref("Markers").remove();
-    markers = [];
-    initMap();
-    renderShops();
+// $("#button").on("click", function(){
+//     $(".card-small").remove();
+//     displayCount =0;
+//     startCount+=10;
+//     queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDC8Ls0IJZZAT9XBFjlvR3ErhtuzIPt5Vo&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+//     console.log("button clicked");
+//     console.log(startCount);
+//     console.log(queryURL);
+//     database.ref("Markers").remove();
+//     markers = [];
+//     initMap();
+//     renderShops();
+// });
+
+$("#button").click(function() {
+  $([document.documentElement, document.body]).animate({
+      scrollTop: $(".locations").offset().top
+  }, 2000);
 });
 
 
