@@ -1,16 +1,4 @@
-
 // Initialize Firebase
-// var config = {
-//     apiKey: "AIzaSyBbRGkTQqynMteWZM9dIr26SsIblxOYe94",
-//     authDomain: "coffeecollective.firebaseapp.com",
-//     databaseURL: "https://coffeecollective.firebaseio.com",
-//     projectId: "coffeecollective",
-//     storageBucket: "",
-//     messagingSenderId: "391262478514"
-// };
-
-
-  // Initialize Firebase
 // var config = {
 //     apiKey: "AIzaSyB6gRTOWB-FIaRDTNxJInuXYNP7gkk4Njg",
 //     authDomain: "coffee-collective.firebaseapp.com",
@@ -92,6 +80,11 @@ var currentCoffeeShop = "";
 
 // firebase.initializeApp(config);
 var database = firebase.database();
+database.ref().on('value', function(snapshot) {
+    // event.preventDefault();
+    var keys = Object.keys(snapshot.val());
+    console.log('Number of coffee shops in Firebase database='+ keys.length);
+});
 $('#add-review-button').attr("disabled", "disabled");
 initializeReviewFormDropdowns();
 // populateCoffeeShopList();
@@ -352,6 +345,8 @@ function getCoffeeShopReviews(coffeShopKey) {
     for (i=0;i<$reviewDivs.length;i++) {
         $reviews.append($reviewDivs[i]);
     }
+    console.log('Reviews', avgRatings);
+    alert('Refreshing chart for ' + reviews.length + ' reviews');
     refreshBarChart(avgRatings, $coffeeShopName, $coffeeShopAddress);
 }
 $("#hide-show-button").on('click', function() {
@@ -531,9 +526,11 @@ function executeAJAXzipCodeQueries(event) {
 $('.show-reviews').on('click', function() {
     var coffeShopKey = $(this).attr('id');
     alert("Showing reviews for " + coffeShopKey);
+    $([document.documentElement, document.body]).animate({
+        scrollTop: $(".reviews").offset().top
+    }, 2000);
     getCoffeeShopReviews(coffeShopKey);
 });
-
 
 $('#coffee-shop-zipcode').on('change', function () {
 //  List only coffee shops in this zip code
@@ -563,7 +560,7 @@ $('#coffee-shop-zipcode').on('change', function () {
 //
 //_____________________________________________________________________
 //  event handler for displaying the reviews for a selected coffee shop
-$('.show-reviews').on('click', function() {
+$(document).on('click', '.show-reviews', function() {
     var coffeShopKey = $(this).attr('id');
     alert("Showing reviews for " + coffeShopKey);
     getCoffeeShopReviews(coffeShopKey);
@@ -572,6 +569,9 @@ $('.show-reviews').on('click', function() {
 
 $('#show-reviews-button').on('click', function() {
     var coffeShopKey = $('#coffee-shop-name').val() + '_' + $('#coffee-shop-address').val();
+    $([document.documentElement, document.body]).animate({
+        scrollTop: $(".reviews").offset().top
+    }, 2000);
     alert("Showing reviews for " + coffeShopKey);
     getCoffeeShopReviews(coffeShopKey);
     // TO-DO: Add code to scroll to the DOM element where the reviews are displayed
@@ -580,11 +580,14 @@ $('#show-reviews-button').on('click', function() {
 //  on-click event handler for when the user wants to write a review
 //  for a particular coffee shop that appeared in the list of coffee
 //  shops displayed for the selected zip code
-$('.write-review').on('click', function(event) {
+$(document).on('click', '.write-review', function(event) {
     //  build the query key for Firebase using the contents of the ID for the
     //  DOM element that was clicked
     var coffeeShopKey = $(this).attr('id');
-    alert('Write a review');
+    $([document.documentElement, document.body]).animate({
+        scrollTop: $("#feedback").offset().top
+    }, 2000);
+    alert('Write a review for coffee shop=' + coffeeShopKey);
     showCoffeeShopInformation(coffeeShopKey);
     var numReviews = 0;
     // database.ref(coffeeShopKey).on('value', function(data) {
@@ -600,12 +603,12 @@ $('.write-review').on('click', function(event) {
     //             $('#coffee-shop-zipcode').text(dataPoint.shopZipcode);
     //         }
     //     });
-    // });
-    // TO-DO: Add code to scroll to the DOM element where the Review is composed
+    // });  
 });
 //___________________________________________________________________
 //  Event handler for submitting a completed review for a coffee shop
 $("#add-review-button").on('click', function(){
+    alert('Adding review');
     pushCoffeeShopReviewToDatabase($("#coffee-shop-name").val(),
                                     $("#coffee-shop-address").val(),
                                     $("#coffee-shop-zipcode").val(),
