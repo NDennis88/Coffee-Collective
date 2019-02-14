@@ -229,6 +229,7 @@ function showCoffeeShopInformation(coffeeShopKey) {
 }
 function getCoffeeShopReviews(coffeShopKey) {
     event.preventDefault();
+    // $reviews = $('#reviews'); changed 2/14/19 10:45am PHT
     $reviews = $('#review');
     $reviews.empty();
     $reviews.append('<canvas id="bar-chart"></canvas>');
