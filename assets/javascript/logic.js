@@ -147,12 +147,8 @@ function initMap() {
             var marker = new google.maps.Marker({
             position: {lat: parseFloat(childs.coords.lat), lng: parseFloat(childs.coords.lng)},
             map: map,
-<<<<<<< HEAD
             animation: google.maps.Animation.DROP,
             icon: "assets/images/Coffee Collective.png"
-=======
-            //icon: "../images/Coffee Collective.png"
->>>>>>> b3efe8d421b4045139ecc3bc07513d8a8a8e2a12
             });
 
             //show infor window when marker is clicked
