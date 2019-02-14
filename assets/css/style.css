@@ -82,7 +82,7 @@ ul.dropdown-content.select-dropdown li span {
   .tabs .tab a:focus, .tabs .tab a:focus.active{
     background: transparent;
   }
-
+/* body */
 
 #locationScroll {
     max-height: 300px;
