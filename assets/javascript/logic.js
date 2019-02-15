@@ -33,10 +33,11 @@
 // });
 
 function initMap() {
-        // New map
+        // New map {lat:38.5816, lng:-121.4944}
+        
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat:38.5816, lng:-121.4944},
-          zoom: 15,
+          center: {lat:38.5800, lng:-121.4628},
+          zoom: 12,
           mapTypeControl: false,
         // Styles a map in Silver
           styles: [
@@ -247,7 +248,7 @@ function renderShops(){
 
 console.log(zipToSearch);
 
-var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA6JpXNo_vbjUVfYDdhqaLDfhNw2iu1BZc&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBB7f1FA3x_O_m3AwG70C3WdHMWPxbRSuE&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
 //var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCzWcFRZ96DbvJn7-Mkf0qkFmnPUIcn5gY&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
 
     $.ajax({
@@ -281,7 +282,7 @@ var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA6JpXNo_vbj
                 if (displayCount < 10){
                     
                     startCount+=10;
-                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA6JpXNo_vbjUVfYDdhqaLDfhNw2iu1BZc&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBB7f1FA3x_O_m3AwG70C3WdHMWPxbRSuE&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
                     //queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCzWcFRZ96DbvJn7-Mkf0qkFmnPUIcn5gY&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
                     console.log(queryURL);
                     console.log(startCount);
