@@ -563,7 +563,7 @@ $(document).on('click', '.show-reviews', function() {
     // alert("Showing reviews for " + coffeShopKey);
     // TO-DO: Add code to auto-click REVIEWS link to make reviews section visible
     $([document.documentElement, document.body]).animate({
-        scrollTop: $(".reviews").offset().top
+        scrollTop: $("#review").offset().top
     }, 2000);
     getCoffeeShopReviews(coffeShopKey);
 });
