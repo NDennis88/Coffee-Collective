@@ -143,7 +143,7 @@ function populateCoffeeShopList() {
     });
 }
 function refreshBarChart(avgRatings, coffeeShopName, coffeeShopAddress) {
-    alert("Updating chart");
+    // alert("Updating chart");
     var chartArea = $('#bar-chart');
     // window.chart = new Chart(chartArea, {});
     var chartData = [];
@@ -523,7 +523,7 @@ function executeAJAXzipCodeQueries(event) {
 //  event handlers for writing and reading reviews
 $('.show-reviews').on('click', function() {
     var coffeShopKey = $(this).attr('id');
-    alert("(1) Showing reviews for " + coffeShopKey);
+    // alert("(1) Showing reviews for " + coffeShopKey);
     $([document.documentElement, document.body]).animate({
         scrollTop: $(".reviews").offset().top
     }, 2000);
@@ -578,7 +578,7 @@ $(document).on('click', '.write-review', function(event) {
     $([document.documentElement, document.body]).animate({
         scrollTop: $("#feedback").offset().top
     }, 2000);
-    alert('Write a review for coffee shop=' + coffeeShopKey);
+    // alert('Write a review for coffee shop=' + coffeeShopKey);
     showCoffeeShopInformation(coffeeShopKey);
     var numReviews = 0;
     // database.ref(coffeeShopKey).on('value', function(data) {
@@ -599,7 +599,7 @@ $(document).on('click', '.write-review', function(event) {
 //___________________________________________________________________
 //  Event handler for submitting a completed review for a coffee shop
 $("#add-review-button").on('click', function(){
-    alert('Adding review');
+    // alert('Adding review');
     pushCoffeeShopReviewToDatabase($("#coffee-shop-name").val(),
                                     $("#coffee-shop-address").val(),
                                     $("#coffee-shop-zipcode").val(),
@@ -674,7 +674,7 @@ $("#hide-show-button").on('click', function() {
 //  This code is effectively the same code used when the user clicks on the "Write a review"
 $("#coffee-shops").on('change', function(event) {
     event.preventDefault();
-    alert("Coffee shop change");
+    // alert("Coffee shop change");
     var coffeeShopKey = $("#coffee-shops").find(":selected").text();
     showCoffeeShopInformation(coffeeShopKey);
 });
