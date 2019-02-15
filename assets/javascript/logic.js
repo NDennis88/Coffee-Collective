@@ -149,7 +149,7 @@ function initMap() {
             position: {lat: parseFloat(childs.coords.lat), lng: parseFloat(childs.coords.lng)},
             map: map,
             // animation: google.maps.Animation.DROP,
-            // icon: "./assets/images/Coffee Collective.png"
+            //icon: "./assets/images/Coffee Collective.png"
             //icon: "../images/Coffee Collective.png"
             });
 
