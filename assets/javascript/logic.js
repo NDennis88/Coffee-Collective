@@ -148,8 +148,8 @@ function initMap() {
             var marker = new google.maps.Marker({
             position: {lat: parseFloat(childs.coords.lat), lng: parseFloat(childs.coords.lng)},
             map: map,
-            // animation: google.maps.Animation.DROP,
-            //icon: "./assets/images/Coffee Collective.png"
+            animation: google.maps.Animation.DROP,
+            icon: "./assets/images/Coffee Collective.png"
             //icon: "../images/Coffee Collective.png"
             });
 
@@ -423,6 +423,10 @@ function renderDiv(item, addressObj) {
     formLink.addClass("write-review");
     formLink.attr("id", item.pagemap.localbusiness[0].name + "_"+item.pagemap.postaladdress[0].streetaddress)
     formLink.html("<i class=material-icons prefix id= reviewIcon>message</i>");
+    formLink.attr("shop-name", item.pagemap.localbusiness[0].name);
+    formLink.attr("shop-address", item.pagemap.postaladdress[0].streetaddress);
+    formLink.attr("shop-zip", item.pagemap.postaladdress[0].postalcode);
+
     //formLink.text("Submit a Review Please!")
 
     var showReview = $("<a>");
