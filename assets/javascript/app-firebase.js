@@ -79,6 +79,10 @@ var displayCount;
 var queryCount;
 var totalQueries;
 var currentCoffeeShop = "";
+var $shopName;
+var $shopAddress;
+var $shopZipcode;
+
 
 // firebase.initializeApp(config);
 var database = firebase.database();
@@ -201,6 +205,11 @@ function showCoffeeShopInformation(coffeeShopKey) {
     // console.log(components);
     // $("#coffee-shop-name").val(components[0]);
     // $("#coffee-shop-address").val(components[1]);
+
+    shopName = $shopName;
+    shopAddress = $shopAddress;
+    shopZipcode = $shopZipcode;
+
     var numReviews = 0;
     database.ref(selectedElement).on("value", function(myData) {
         myData.forEach(function(reviewData) {
@@ -575,6 +584,9 @@ $(document).on('click', '.write-review', function(event) {
     //  build the query key for Firebase using the contents of the ID for the
     //  DOM element that was clicked
     var coffeeShopKey = $(this).attr('id');
+    $shopName = $(this).attr('shop-name');
+    $shopAddress = $(this).attr('shop-address');
+    $shopZipcode = $(this).attr('shop-zip');
     $([document.documentElement, document.body]).animate({
         scrollTop: $("#feedback").offset().top
     }, 2000);
