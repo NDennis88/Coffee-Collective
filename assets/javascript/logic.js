@@ -343,7 +343,7 @@ function generateLatLong(item){
 
    
     console.log(address);
-    var mapQuestURL = "http://www.mapquestapi.com/geocoding/v1/address?key=mqSsiVGOlUXWSCAUYjt39mqdAEeF6Gld&location=" + address; 
+    var mapQuestURL = "https://www.mapquestapi.com/geocoding/v1/address?key=mqSsiVGOlUXWSCAUYjt39mqdAEeF6Gld&location=" + address; 
     $.ajax({
         url: mapQuestURL,
         method: "GET",
