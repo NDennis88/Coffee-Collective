@@ -148,8 +148,8 @@ function initMap() {
             var marker = new google.maps.Marker({
             position: {lat: parseFloat(childs.coords.lat), lng: parseFloat(childs.coords.lng)},
             map: map,
-            animation: google.maps.Animation.DROP,
-            icon: "./assets/images/Coffee Collective.png"
+            // animation: google.maps.Animation.DROP,
+            // icon: "./assets/images/Coffee Collective.png"
             //icon: "../images/Coffee Collective.png"
             });
 
@@ -247,7 +247,7 @@ function renderShops(){
 
 console.log(zipToSearch);
 
-var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA0wjmJjCwA2DTMB3R72jB-yh5wUcGjOgs&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA6JpXNo_vbjUVfYDdhqaLDfhNw2iu1BZc&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
 //var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCzWcFRZ96DbvJn7-Mkf0qkFmnPUIcn5gY&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
 
     $.ajax({
@@ -279,9 +279,9 @@ var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA0wjmJjCwA2
                 console.log(displayCount);
 
                 if (displayCount < 10){
-                    //console.log("leo is here")
+                    
                     startCount+=10;
-                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA0wjmJjCwA2DTMB3R72jB-yh5wUcGjOgs&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA6JpXNo_vbjUVfYDdhqaLDfhNw2iu1BZc&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
                     //queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCzWcFRZ96DbvJn7-Mkf0qkFmnPUIcn5gY&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
                     console.log(queryURL);
                     console.log(startCount);
