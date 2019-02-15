@@ -131,3 +131,7 @@ ul.dropdown-content.select-dropdown li span {
         font-size: .8em;
     }
 }
+
+.gm-style-iw-d, .gm-style-iw {
+    max-height: 300px !important
+ }
