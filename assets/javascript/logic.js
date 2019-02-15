@@ -36,7 +36,7 @@ function initMap() {
         // New map
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat:38.5816, lng:-121.4944},
-          zoom: 12,
+          zoom: 15,
           mapTypeControl: false,
         // Styles a map in Silver
           styles: [
@@ -211,6 +211,7 @@ function initMap() {
 
 //****** Do not use key below....it will be a fresh one we use for project demo 
 //var api = AIzaSyA6JpXNo_vbjUVfYDdhqaLDfhNw2iu1BZc
+//AIzaSyA0wjmJjCwA2DTMB3R72jB-yh5wUcGjOgs
 //************************************************************************** */
 function renderZips(array){
 
@@ -246,7 +247,7 @@ function renderShops(){
 
 console.log(zipToSearch);
 
-var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyANJx0GShdTBdZ_JqCDWJGoCbEIH-c5RvA&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA0wjmJjCwA2DTMB3R72jB-yh5wUcGjOgs&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
 //var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCzWcFRZ96DbvJn7-Mkf0qkFmnPUIcn5gY&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
 
     $.ajax({
@@ -280,7 +281,7 @@ var queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyANJx0GShdTB
                 if (displayCount < 10){
                     //console.log("leo is here")
                     startCount+=10;
-                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyANJx0GShdTBdZ_JqCDWJGoCbEIH-c5RvA&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
+                    queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA0wjmJjCwA2DTMB3R72jB-yh5wUcGjOgs&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
                     //queryURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCzWcFRZ96DbvJn7-Mkf0qkFmnPUIcn5gY&cx=000232087639553296774:quobpehcgrs&q=coffee&hq=" + zipToSearch + "&start=" + startCount;
                     console.log(queryURL);
                     console.log(startCount);
